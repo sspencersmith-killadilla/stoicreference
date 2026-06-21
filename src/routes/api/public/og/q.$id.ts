@@ -6,7 +6,11 @@ export const Route = createFileRoute("/api/public/og/q/$id")({
   server: {
     handlers: {
       GET: async ({ params, request }) => {
-        const { ImageResponse } = await import("workers-og");
+        // Hide the import from Vite's SSR scanner — workers-og bundles a
+        // .wasm with browser-style imports that Node's ESM resolver can't
+        // parse during dev. The handler only runs on Cloudflare in prod.
+        const pkg = "workers-og";
+        const { ImageResponse } = await import(/* @vite-ignore */ pkg);
         const quote = QUOTES.find((q) => q.id === params.id);
         if (!quote) throw notFound();
 
