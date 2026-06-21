@@ -6,6 +6,8 @@ import { QUOTES } from "@/data/quotes";
 import { PHILOSOPHERS } from "@/data/philosophers";
 import { THEMES } from "@/data/themes";
 import { loadHistory, type HistoryEntry } from "@/lib/history";
+import { pickDailyPuzzle } from "@/data/crosswords";
+import { isSolved } from "@/lib/crossword-progress";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -22,10 +24,13 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const daily = pickDaily();
+  const dailyPuzzle = pickDailyPuzzle();
   const [recent, setRecent] = useState<HistoryEntry[]>([]);
+  const [puzzleSolved, setPuzzleSolved] = useState(false);
   useEffect(() => {
     setRecent(loadHistory().slice(0, 3));
-  }, []);
+    setPuzzleSolved(isSolved(dailyPuzzle.id));
+  }, [dailyPuzzle.id]);
 
   return (
     <div className="relative">
@@ -54,6 +59,25 @@ function Index() {
             <span className="text-xs text-muted-foreground">{new Date().toLocaleDateString(undefined, { month: "long", day: "numeric" })}</span>
           </div>
           <QuoteCard quote={daily} />
+        </section>
+
+        <section className="mt-10">
+          <Link
+            to="/crossword"
+            className="group block rounded-2xl border border-border bg-card p-6 shadow-soft hover:border-foreground/30 transition"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="small-caps text-xs text-muted-foreground">Today&rsquo;s puzzle</p>
+                <h2 className="mt-1 font-display text-2xl">{dailyPuzzle.title}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">A five-by-five Stoic word square. Two-minute solve.</p>
+              </div>
+              <MiniGridPreview />
+            </div>
+            <div className="mt-4 text-xs text-muted-foreground flex items-center gap-2">
+              {puzzleSolved ? <span className="text-accent">✓ Solved today</span> : <span>Play →</span>}
+            </div>
+          </Link>
         </section>
 
       {recent.length > 0 ? (
