@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ThemesRouteImport } from './routes/themes'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as CrosswordRouteImport } from './routes/crossword'
 import { Route as AskRouteImport } from './routes/ask'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -33,6 +34,11 @@ const PhilosophersRoute = PhilosophersRouteImport.update({
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrosswordRoute = CrosswordRouteImport.update({
+  id: '/crossword',
+  path: '/crossword',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AskRoute = AskRouteImport.update({
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
+  '/crossword': typeof CrosswordRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
+  '/crossword': typeof CrosswordRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
+  '/crossword': typeof CrosswordRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
+    | '/crossword'
     | '/history'
     | '/philosophers'
     | '/themes'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
+    | '/crossword'
     | '/history'
     | '/philosophers'
     | '/themes'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
+    | '/crossword'
     | '/history'
     | '/philosophers'
     | '/themes'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AskRoute: typeof AskRoute
+  CrosswordRoute: typeof CrosswordRoute
   HistoryRoute: typeof HistoryRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   ThemesRoute: typeof ThemesRouteWithChildren
@@ -179,6 +192,13 @@ declare module '@tanstack/react-router' {
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/crossword': {
+      id: '/crossword'
+      path: '/crossword'
+      fullPath: '/crossword'
+      preLoaderRoute: typeof CrosswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ask': {
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AskRoute: AskRoute,
+  CrosswordRoute: CrosswordRoute,
   HistoryRoute: HistoryRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
   ThemesRoute: ThemesRouteWithChildren,
