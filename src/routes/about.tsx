@@ -5,7 +5,12 @@ export const Route = createFileRoute("/about")({
     meta: [
       { title: "About — The Stoic Reference" },
       { name: "description", content: "What Stoicism is, how this reference works, and how to read its answers." },
+      { property: "og:title", content: "About — The Stoic Reference" },
+      { property: "og:description", content: "What Stoicism is, how this reference works, and how to read its answers." },
+      { property: "og:url", content: "https://askthestoics.org/about" },
+      { property: "og:type", content: "article" },
     ],
+    links: [{ rel: "canonical", href: "https://askthestoics.org/about" }],
   }),
   component: AboutPage,
 });
