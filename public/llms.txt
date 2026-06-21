@@ -7,7 +7,7 @@
 - [Home — Ask the Stoics](/): Question search and a daily meditation.
 - [Philosophers](/philosophers): The four principal Roman Stoics.
 - [Themes](/themes): Stoic teachings organized by subject.
-- [Daily Crossword](/crossword): A five-by-five Stoic word-square puzzle, refreshed each day.
+- [Daily Word Search](/wordsearch): A themed Stoic word search, refreshed each day.
 - [About](/about): What Stoicism is and how this reference works.
 
 ## Philosophers

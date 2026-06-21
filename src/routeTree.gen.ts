@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WordsearchRouteImport } from './routes/wordsearch'
 import { Route as ThemesRouteImport } from './routes/themes'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
 import { Route as HistoryRouteImport } from './routes/history'
@@ -20,6 +21,11 @@ import { Route as QIdRouteImport } from './routes/q.$id'
 import { Route as PhilosophersSlugRouteImport } from './routes/philosophers.$slug'
 import { Route as ApiAskRouteImport } from './routes/api/ask'
 
+const WordsearchRoute = WordsearchRouteImport.update({
+  id: '/wordsearch',
+  path: '/wordsearch',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThemesRoute = ThemesRouteImport.update({
   id: '/themes',
   path: '/themes',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
+  '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
+  '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
+  '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/philosophers'
     | '/themes'
+    | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/philosophers'
     | '/themes'
+    | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/philosophers'
     | '/themes'
+    | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
@@ -154,12 +166,20 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   ThemesRoute: typeof ThemesRouteWithChildren
+  WordsearchRoute: typeof WordsearchRoute
   ApiAskRoute: typeof ApiAskRoute
   QIdRoute: typeof QIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wordsearch': {
+      id: '/wordsearch'
+      path: '/wordsearch'
+      fullPath: '/wordsearch'
+      preLoaderRoute: typeof WordsearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/themes': {
       id: '/themes'
       path: '/themes'
@@ -263,6 +283,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
   ThemesRoute: ThemesRouteWithChildren,
+  WordsearchRoute: WordsearchRoute,
   ApiAskRoute: ApiAskRoute,
   QIdRoute: QIdRoute,
 }
