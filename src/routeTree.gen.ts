@@ -9,10 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WordsearchRouteImport } from './routes/wordsearch'
 import { Route as ThemesRouteImport } from './routes/themes'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
 import { Route as HistoryRouteImport } from './routes/history'
-import { Route as CrosswordRouteImport } from './routes/crossword'
 import { Route as AskRouteImport } from './routes/ask'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -21,6 +21,11 @@ import { Route as QIdRouteImport } from './routes/q.$id'
 import { Route as PhilosophersSlugRouteImport } from './routes/philosophers.$slug'
 import { Route as ApiAskRouteImport } from './routes/api/ask'
 
+const WordsearchRoute = WordsearchRouteImport.update({
+  id: '/wordsearch',
+  path: '/wordsearch',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThemesRoute = ThemesRouteImport.update({
   id: '/themes',
   path: '/themes',
@@ -34,11 +39,6 @@ const PhilosophersRoute = PhilosophersRouteImport.update({
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CrosswordRoute = CrosswordRouteImport.update({
-  id: '/crossword',
-  path: '/crossword',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AskRoute = AskRouteImport.update({
@@ -81,10 +81,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
-  '/crossword': typeof CrosswordRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
+  '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
@@ -94,10 +94,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
-  '/crossword': typeof CrosswordRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
+  '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
@@ -108,10 +108,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
-  '/crossword': typeof CrosswordRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/themes': typeof ThemesRouteWithChildren
+  '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
@@ -123,10 +123,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
-    | '/crossword'
     | '/history'
     | '/philosophers'
     | '/themes'
+    | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
@@ -136,10 +136,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
-    | '/crossword'
     | '/history'
     | '/philosophers'
     | '/themes'
+    | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
@@ -149,10 +149,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
-    | '/crossword'
     | '/history'
     | '/philosophers'
     | '/themes'
+    | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
@@ -163,16 +163,23 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AskRoute: typeof AskRoute
-  CrosswordRoute: typeof CrosswordRoute
   HistoryRoute: typeof HistoryRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   ThemesRoute: typeof ThemesRouteWithChildren
+  WordsearchRoute: typeof WordsearchRoute
   ApiAskRoute: typeof ApiAskRoute
   QIdRoute: typeof QIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wordsearch': {
+      id: '/wordsearch'
+      path: '/wordsearch'
+      fullPath: '/wordsearch'
+      preLoaderRoute: typeof WordsearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/themes': {
       id: '/themes'
       path: '/themes'
@@ -192,13 +199,6 @@ declare module '@tanstack/react-router' {
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof HistoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/crossword': {
-      id: '/crossword'
-      path: '/crossword'
-      fullPath: '/crossword'
-      preLoaderRoute: typeof CrosswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ask': {
@@ -280,10 +280,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AskRoute: AskRoute,
-  CrosswordRoute: CrosswordRoute,
   HistoryRoute: HistoryRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
   ThemesRoute: ThemesRouteWithChildren,
+  WordsearchRoute: WordsearchRoute,
   ApiAskRoute: ApiAskRoute,
   QIdRoute: QIdRoute,
 }

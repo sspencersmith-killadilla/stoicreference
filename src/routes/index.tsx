@@ -6,8 +6,8 @@ import { QUOTES } from "@/data/quotes";
 import { PHILOSOPHERS } from "@/data/philosophers";
 import { THEMES } from "@/data/themes";
 import { loadHistory, type HistoryEntry } from "@/lib/history";
-import { pickDailyPuzzle } from "@/data/crosswords";
-import { isSolved } from "@/lib/crossword-progress";
+import { pickDailyPuzzle } from "@/data/wordsearch";
+import { isSolved } from "@/lib/wordsearch-progress";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/")({
@@ -63,14 +63,14 @@ function Index() {
 
         <section className="mt-10">
           <Link
-            to="/crossword"
+            to="/wordsearch"
             className="group block rounded-2xl border border-border bg-card p-6 shadow-soft hover:border-foreground/30 transition"
           >
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="small-caps text-xs text-muted-foreground">Today&rsquo;s puzzle</p>
                 <h2 className="mt-1 font-display text-2xl">{dailyPuzzle.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">A five-by-five Stoic word square. Two-minute solve.</p>
+                <p className="mt-1 text-sm text-muted-foreground">A themed Stoic word search. Find them all.</p>
               </div>
               <MiniGridPreview />
             </div>
@@ -150,18 +150,14 @@ function pickDaily() {
 }
 
 function MiniGridPreview() {
-  // Decorative 5x5 grid hint for the puzzle teaser.
-  const pattern = [
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-  ];
+  // Decorative word-search hint for the puzzle teaser.
+  const letters = "VIRTUEAMORFATILOGOSCALMS".split("");
   return (
-    <div className="hidden sm:grid grid-cols-5 gap-[2px] bg-foreground/70 p-[2px] rounded-md w-20 h-20 shrink-0" aria-hidden>
-      {pattern.flat().map((v, i) => (
-        <div key={i} className={v ? "bg-background" : "bg-foreground"} />
+    <div className="hidden sm:grid grid-cols-5 gap-[1px] bg-foreground/10 p-[2px] rounded-md w-20 h-20 shrink-0" aria-hidden>
+      {letters.slice(0, 25).map((ch, i) => (
+        <div key={i} className="bg-background flex items-center justify-center text-[8px] font-medium text-muted-foreground">
+          {ch}
+        </div>
       ))}
     </div>
   );
