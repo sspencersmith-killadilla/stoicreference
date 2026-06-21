@@ -6,6 +6,7 @@ import { AskForm } from "@/components/AskForm";
 import { QuoteCard } from "@/components/QuoteCard";
 import type { AskResult } from "@/lib/ask-types";
 import { saveEntry } from "@/lib/history";
+import { ShareQuote } from "@/components/ShareQuote";
 
 const search = z.object({ q: z.string().optional() });
 
@@ -67,21 +68,23 @@ function AskPage() {
   }, [question]);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <AskForm />
+    <div className="relative">
+      <div className="absolute inset-x-0 top-0 h-[420px] aurora-bg -z-10" aria-hidden />
+      <div className="mx-auto max-w-3xl px-6 pt-12 md:pt-16 pb-16">
+        <AskForm />
 
-      {question ? (
-        <div className="mt-12">
-          <p className="small-caps text-xs text-muted-foreground">You asked</p>
-          <h1 className="font-serif text-3xl md:text-4xl mt-2 leading-snug italic">
-            &ldquo;{question}&rdquo;
-          </h1>
-        </div>
-      ) : (
-        <p className="mt-16 text-center text-muted-foreground">
-          Enter a question above. <Link to="/themes" className="underline">Or browse by theme.</Link>
-        </p>
-      )}
+        {question ? (
+          <div className="mt-14">
+            <p className="small-caps text-xs text-muted-foreground">You asked</p>
+            <h1 className="font-display text-4xl md:text-5xl mt-3 leading-[1.05] tracking-tight italic">
+              &ldquo;{question}&rdquo;
+            </h1>
+          </div>
+        ) : (
+          <p className="mt-16 text-center text-muted-foreground">
+            Enter a question above. <Link to="/themes" className="text-accent hover:underline">Or browse by theme.</Link>
+          </p>
+        )}
 
       {state.status === "loading" ? <LoadingSkeleton /> : null}
       {state.status === "error" ? (
@@ -90,7 +93,8 @@ function AskPage() {
           <p className="text-foreground/80 mt-1">{state.message}</p>
         </div>
       ) : null}
-      {state.status === "ok" ? <Result result={state.result} /> : null}
+        {state.status === "ok" ? <Result result={state.result} /> : null}
+      </div>
     </div>
   );
 }
@@ -98,20 +102,21 @@ function AskPage() {
 function Result({ result }: { result: AskResult }) {
   return (
     <div className="mt-10 space-y-12">
-      <section>
+      <section className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-soft">
         <p className="small-caps text-xs text-muted-foreground mb-3">A reading</p>
-        <div className="prose prose-stone max-w-none font-serif text-lg leading-relaxed">
+        <div className="prose prose-stone max-w-none text-base md:text-lg leading-relaxed">
           <ReactMarkdown>{result.synthesis}</ReactMarkdown>
         </div>
       </section>
 
       <section>
         <p className="small-caps text-xs text-muted-foreground mb-6">From the Stoics</p>
-        <div className="space-y-10">
+        <div className="space-y-6">
           {result.picks.map((p, i) => (
             <QuoteCard
               key={i}
               quote={p.quote}
+              interpretation={p.interpretation}
               footer={
                 <div className="text-sm text-foreground/90 leading-relaxed">
                   <p className="text-xs small-caps text-muted-foreground mb-1">Modern reading</p>
@@ -130,14 +135,20 @@ function Result({ result }: { result: AskResult }) {
           <p className="text-xs text-muted-foreground mb-6 italic">
             AI-suggested attributions. Verify against a printed edition before quoting.
           </p>
-          <div className="space-y-8">
+          <div className="space-y-6">
             {result.additional.map((a, i) => (
-              <figure key={i} className="border-l-2 border-muted-foreground/30 pl-5">
-                <blockquote className="pullquote text-lg">&ldquo;{a.text}&rdquo;</blockquote>
-                <figcaption className="mt-2 text-sm text-muted-foreground">
+              <figure key={i} className="rounded-2xl border border-dashed border-border bg-card/60 p-6">
+                <blockquote className="pullquote text-xl">&ldquo;{a.text}&rdquo;</blockquote>
+                <figcaption className="mt-3 text-sm text-muted-foreground">
                   {a.author} · <span className="italic">{a.source}</span>
                 </figcaption>
                 <p className="mt-3 text-sm text-foreground/90">{a.interpretation}</p>
+                <ShareQuote
+                  text={a.text}
+                  author={a.author}
+                  source={a.source}
+                  interpretation={a.interpretation}
+                />
               </figure>
             ))}
           </div>

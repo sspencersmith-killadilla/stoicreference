@@ -28,24 +28,33 @@ function Index() {
   }, []);
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-      <section className="text-center">
-        <p className="small-caps text-xs text-muted-foreground">A working reference of Stoicism</p>
-        <h1 className="mt-3 font-serif text-5xl md:text-6xl leading-tight">
-          Ask the Stoics.
-        </h1>
-        <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-          Type any question you carry. We&rsquo;ll return what Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus left us — with sources and a modern reading.
-        </p>
-        <div className="mt-8">
-          <AskForm autoFocus />
-        </div>
-      </section>
+    <div className="relative">
+      <div className="absolute inset-x-0 top-0 h-[640px] aurora-bg -z-10" aria-hidden />
+      <div className="mx-auto max-w-3xl px-6 pt-20 md:pt-28 pb-16">
+        <section className="text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 backdrop-blur px-3 py-1 text-[11px] small-caps text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent" /> A working reference of Stoicism
+          </span>
+          <h1 className="mt-6 font-display text-6xl md:text-7xl leading-[0.95] tracking-tight">
+            Ask the Stoics.
+            <br />
+            <span className="italic text-muted-foreground">Get a real answer.</span>
+          </h1>
+          <p className="mt-6 text-muted-foreground max-w-xl mx-auto text-base md:text-lg">
+            Type any question you carry. We return what Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus actually wrote — sourced, dated, and translated into a modern reading you can share.
+          </p>
+          <div className="mt-10 max-w-2xl mx-auto">
+            <AskForm autoFocus />
+          </div>
+        </section>
 
-      <section className="mt-20">
-        <p className="small-caps text-xs text-muted-foreground mb-4">Today&rsquo;s meditation</p>
-        <QuoteCard quote={daily} />
-      </section>
+        <section className="mt-24">
+          <div className="flex items-baseline justify-between mb-5">
+            <p className="small-caps text-xs text-muted-foreground">Today&rsquo;s meditation</p>
+            <span className="text-xs text-muted-foreground">{new Date().toLocaleDateString(undefined, { month: "long", day: "numeric" })}</span>
+          </div>
+          <QuoteCard quote={daily} />
+        </section>
 
       {recent.length > 0 ? (
         <section className="mt-16">
@@ -62,33 +71,48 @@ function Index() {
         </section>
       ) : null}
 
-      <section className="mt-20 grid md:grid-cols-2 gap-10">
-        <div>
-          <h2 className="font-serif text-2xl mb-3">Philosophers</h2>
-          <ul className="space-y-2 text-sm">
-            {PHILOSOPHERS.map((p) => (
-              <li key={p.slug}>
-                <Link to="/philosophers/$slug" params={{ slug: p.slug }} className="hover:text-primary">
-                  <span className="font-serif text-lg">{p.name}</span>
-                  <span className="text-muted-foreground"> — {p.era}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h2 className="font-serif text-2xl mb-3">Themes</h2>
-          <ul className="grid grid-cols-2 gap-y-2 text-sm">
-            {THEMES.map((t) => (
-              <li key={t.slug}>
-                <Link to="/themes/$slug" params={{ slug: t.slug }} className="hover:text-primary">
-                  {t.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+        <section className="mt-24 grid md:grid-cols-2 gap-6">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-display text-2xl">Philosophers</h2>
+              <Link to="/philosophers" className="text-xs text-muted-foreground hover:text-foreground">All →</Link>
+            </div>
+            <ul className="space-y-1">
+              {PHILOSOPHERS.map((p) => (
+                <li key={p.slug}>
+                  <Link
+                    to="/philosophers/$slug"
+                    params={{ slug: p.slug }}
+                    className="flex items-center justify-between rounded-lg px-3 py-2 -mx-3 hover:bg-secondary transition group"
+                  >
+                    <span className="font-display text-lg">{p.name}</span>
+                    <span className="text-xs text-muted-foreground group-hover:text-foreground">{p.era}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-display text-2xl">Themes</h2>
+              <Link to="/themes" className="text-xs text-muted-foreground hover:text-foreground">All →</Link>
+            </div>
+            <ul className="flex flex-wrap gap-1.5">
+              {THEMES.map((t) => (
+                <li key={t.slug}>
+                  <Link
+                    to="/themes/$slug"
+                    params={{ slug: t.slug }}
+                    className="inline-block text-sm rounded-full border border-border bg-background px-3 py-1.5 hover:bg-secondary hover:border-foreground/30 transition"
+                  >
+                    {t.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

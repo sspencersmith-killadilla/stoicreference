@@ -16,6 +16,7 @@ import { Route as AskRouteImport } from './routes/ask'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ThemesSlugRouteImport } from './routes/themes.$slug'
+import { Route as QIdRouteImport } from './routes/q.$id'
 import { Route as PhilosophersSlugRouteImport } from './routes/philosophers.$slug'
 import { Route as ApiAskRouteImport } from './routes/api/ask'
 
@@ -54,6 +55,11 @@ const ThemesSlugRoute = ThemesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ThemesRoute,
 } as any)
+const QIdRoute = QIdRouteImport.update({
+  id: '/q/$id',
+  path: '/q/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PhilosophersSlugRoute = PhilosophersSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/themes': typeof ThemesRouteWithChildren
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
+  '/q/$id': typeof QIdRoute
   '/themes/$slug': typeof ThemesSlugRoute
 }
 export interface FileRoutesByTo {
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/themes': typeof ThemesRouteWithChildren
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
+  '/q/$id': typeof QIdRoute
   '/themes/$slug': typeof ThemesSlugRoute
 }
 export interface FileRoutesById {
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/themes': typeof ThemesRouteWithChildren
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
+  '/q/$id': typeof QIdRoute
   '/themes/$slug': typeof ThemesSlugRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/themes'
     | '/api/ask'
     | '/philosophers/$slug'
+    | '/q/$id'
     | '/themes/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/themes'
     | '/api/ask'
     | '/philosophers/$slug'
+    | '/q/$id'
     | '/themes/$slug'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/themes'
     | '/api/ask'
     | '/philosophers/$slug'
+    | '/q/$id'
     | '/themes/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -143,6 +155,7 @@ export interface RootRouteChildren {
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   ThemesRoute: typeof ThemesRouteWithChildren
   ApiAskRoute: typeof ApiAskRoute
+  QIdRoute: typeof QIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -196,6 +209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ThemesSlugRouteImport
       parentRoute: typeof ThemesRoute
     }
+    '/q/$id': {
+      id: '/q/$id'
+      path: '/q/$id'
+      fullPath: '/q/$id'
+      preLoaderRoute: typeof QIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/philosophers/$slug': {
       id: '/philosophers/$slug'
       path: '/$slug'
@@ -244,6 +264,7 @@ const rootRouteChildren: RootRouteChildren = {
   PhilosophersRoute: PhilosophersRouteWithChildren,
   ThemesRoute: ThemesRouteWithChildren,
   ApiAskRoute: ApiAskRoute,
+  QIdRoute: QIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
