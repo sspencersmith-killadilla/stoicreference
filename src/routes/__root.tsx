@@ -94,7 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap",
       },
     ],
   }),
@@ -136,25 +136,36 @@ function RootComponent() {
 
 function SiteHeader() {
   return (
-    <header className="border-b border-border/70">
-      <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between">
-        <Link to="/" className="font-serif text-xl tracking-tight">
-          The Stoic Reference
+    <header className="sticky top-0 z-40 border-b border-border/60 backdrop-blur-xl bg-background/70">
+      <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2 group">
+          <span className="h-7 w-7 rounded-lg bg-foreground text-background grid place-items-center font-display text-base leading-none">S</span>
+          <span className="font-display text-[1.35rem] leading-none tracking-tight">Stoic<span className="text-muted-foreground">.</span>ref</span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm">
-          <Link to="/philosophers" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-            Philosophers
-          </Link>
-          <Link to="/themes" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-            Themes
-          </Link>
-          <Link to="/history" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-            History
-          </Link>
-          <Link to="/about" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
-            About
-          </Link>
+        <nav className="hidden md:flex items-center gap-1 text-sm">
+          {[
+            { to: "/philosophers", label: "Philosophers" },
+            { to: "/themes", label: "Themes" },
+            { to: "/history", label: "History" },
+            { to: "/about", label: "About" },
+          ].map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              className="px-3 py-1.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition"
+              activeProps={{ className: "px-3 py-1.5 rounded-full text-foreground bg-secondary" }}
+            >
+              {l.label}
+            </Link>
+          ))}
         </nav>
+        <Link
+          to="/ask"
+          className="inline-flex items-center gap-1.5 rounded-full bg-foreground text-background text-sm font-medium px-4 py-1.5 hover:opacity-90 transition"
+        >
+          Ask
+          <span aria-hidden>→</span>
+        </Link>
       </div>
     </header>
   );
@@ -162,10 +173,15 @@ function SiteHeader() {
 
 function SiteFooter() {
   return (
-    <footer className="border-t border-border/70 mt-16">
-      <div className="mx-auto max-w-6xl px-6 py-8 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-3">
-        <span className="small-caps">The Stoic Reference</span>
-        <span>Quotes from public-domain translations. Interpretations are AI-assisted; verify before quoting.</span>
+    <footer className="border-t border-border/60 mt-24">
+      <div className="mx-auto max-w-6xl px-6 py-10 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <span className="h-6 w-6 rounded-md bg-foreground text-background grid place-items-center font-display text-xs leading-none">S</span>
+          <span className="text-sm font-medium">Stoic.ref</span>
+        </div>
+        <p className="text-xs text-muted-foreground max-w-md">
+          Quotes from public-domain translations. Modern readings are AI-assisted — verify before quoting in serious work.
+        </p>
       </div>
     </footer>
   );
