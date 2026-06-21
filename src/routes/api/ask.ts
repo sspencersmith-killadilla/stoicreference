@@ -22,7 +22,7 @@ const ResponseSchema = z.object({
         interpretation: z.string(),
       }),
     )
-    .default([]),
+    .optional(),
 });
 
 export const Route = createFileRoute("/api/ask")({
