@@ -1,4 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
+import { ImageResponse } from "@cf-wasm/og";
 import { QUOTES } from "@/data/quotes";
 
 export const Route = createFileRoute("/api/og/q/$id")({
@@ -84,8 +85,7 @@ export const Route = createFileRoute("/api/og/q/$id")({
         `;
 
         try {
-          const { ImageResponse } = await import("workers-og");
-          return new ImageResponse(html, {
+          return new ImageResponse(html as unknown as React.ReactElement, {
             width: 1200,
             height: 630,
             fonts: await loadFonts(),
