@@ -152,6 +152,9 @@ function SiteHeader() {
           <Link to="/themes" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
             Themes
           </Link>
+          <Link to="/crossword" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+            Crossword
+          </Link>
           <Link to="/history" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
             History
           </Link>
