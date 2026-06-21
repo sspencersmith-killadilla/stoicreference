@@ -66,13 +66,13 @@ export function ShareQuote(props: Props) {
   )}&quote=${encodeURIComponent(shareText)}`;
 
   return (
-    <div className="mt-5 flex flex-wrap items-center gap-1.5">
-      <span className="small-caps text-[11px] text-muted-foreground mr-2">Share</span>
+    <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+      <span className="small-caps text-[10px] text-foreground/50">Share</span>
 
       <button
         type="button"
         onClick={nativeShare}
-        className="md:hidden inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary transition"
+        className="md:hidden inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink"
         aria-label="Share"
       >
         <Share2 className="h-3.5 w-3.5" /> Share
@@ -82,7 +82,7 @@ export function ShareQuote(props: Props) {
         href={tw}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary transition"
+        className="inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink"
         aria-label="Share on X"
       >
         <Twitter className="h-3.5 w-3.5" /> X
@@ -91,7 +91,7 @@ export function ShareQuote(props: Props) {
         href={li}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary transition"
+        className="inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink"
         aria-label="Share on LinkedIn"
       >
         <Linkedin className="h-3.5 w-3.5" /> LinkedIn
@@ -100,7 +100,7 @@ export function ShareQuote(props: Props) {
         href={fb}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary transition"
+        className="inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink"
         aria-label="Share on Facebook"
       >
         <Facebook className="h-3.5 w-3.5" /> Facebook
@@ -108,7 +108,7 @@ export function ShareQuote(props: Props) {
       <button
         type="button"
         onClick={() => copy(buildShareText(props, true), "text")}
-        className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary transition"
+        className="inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink cursor-pointer"
       >
         {copied === "text" ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
         {copied === "text" ? "Copied" : "Copy quote"}
@@ -117,7 +117,7 @@ export function ShareQuote(props: Props) {
         <button
           type="button"
           onClick={() => copy(url, "link")}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1.5 text-xs hover:bg-secondary transition"
+          className="inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink cursor-pointer"
         >
           {copied === "link" ? <Check className="h-3.5 w-3.5" /> : <LinkIcon className="h-3.5 w-3.5" />}
           {copied === "link" ? "Copied" : "Copy link"}

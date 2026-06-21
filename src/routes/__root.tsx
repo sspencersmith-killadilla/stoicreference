@@ -98,7 +98,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
       },
     ],
   }),
@@ -140,25 +140,28 @@ function RootComponent() {
 
 function SiteHeader() {
   return (
-    <header className="border-b border-border/70">
-      <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between">
-        <Link to="/" className="font-serif text-xl tracking-tight">
-          The Stoic Reference
+    <header className="border-b border-border">
+      <div className="mx-auto max-w-6xl px-6 md:px-10 py-6 flex items-end justify-between gap-6">
+        <Link to="/" className="group block">
+          <p className="small-caps text-[10px] text-foreground/60 mb-1">A working reference of Stoicism</p>
+          <span className="font-display italic text-xl md:text-2xl text-ink leading-none">
+            The Stoic Reference
+          </span>
         </Link>
-        <nav className="flex items-center gap-6 text-sm">
-          <Link to="/philosophers" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+        <nav className="hidden md:flex items-center gap-8 small-caps text-[10px]">
+          <Link to="/philosophers" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
             Philosophers
           </Link>
-          <Link to="/themes" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+          <Link to="/themes" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
             Themes
           </Link>
-          <Link to="/wordsearch" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+          <Link to="/wordsearch" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
             Word Search
           </Link>
-          <Link to="/history" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+          <Link to="/history" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
             History
           </Link>
-          <Link to="/about" className="text-muted-foreground hover:text-foreground" activeProps={{ className: "text-foreground" }}>
+          <Link to="/about" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
             About
           </Link>
         </nav>
@@ -169,10 +172,10 @@ function SiteHeader() {
 
 function SiteFooter() {
   return (
-    <footer className="border-t border-border/70 mt-16">
-      <div className="mx-auto max-w-6xl px-6 py-8 text-xs text-muted-foreground flex flex-wrap items-center justify-between gap-3">
-        <span className="small-caps">The Stoic Reference</span>
-        <span>Quotes from public-domain translations. Interpretations are AI-assisted; verify before quoting.</span>
+    <footer className="border-t border-border mt-24">
+      <div className="mx-auto max-w-6xl px-6 md:px-10 py-8 text-[11px] text-foreground/60 flex flex-wrap items-center justify-between gap-3">
+        <span className="small-caps text-foreground/80">The Stoic Reference — Ref. 4.01</span>
+        <span className="font-sans">Sourced from public-domain translations · Interpretations are AI-assisted; verify before quoting.</span>
       </div>
     </footer>
   );
