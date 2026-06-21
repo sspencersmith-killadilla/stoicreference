@@ -4,9 +4,13 @@ import { PHILOSOPHERS } from "@/data/philosophers";
 export const Route = createFileRoute("/philosophers")({
   head: () => ({
     meta: [
-      { title: "Philosophers — The Stoic Reference" },
-      { name: "description", content: "Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — the principal Roman Stoics." },
+      { title: "Stoic Philosophers — Marcus Aurelius, Seneca, Epictetus & More" },
+      { name: "description", content: "The ten principal Stoic philosophers — from Zeno of Citium to Marcus Aurelius — with biographies, key works, and quotes." },
+      { property: "og:title", content: "Stoic Philosophers" },
+      { property: "og:description", content: "Biographies, key works, and quotes from the principal Stoic philosophers." },
+      { property: "og:url", content: "https://askthestoics.org/philosophers" },
     ],
+    links: [{ rel: "canonical", href: "https://askthestoics.org/philosophers" }],
   }),
   component: PhilosophersIndex,
 });

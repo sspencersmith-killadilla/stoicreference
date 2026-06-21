@@ -14,9 +14,13 @@ export const Route = createFileRoute("/ask")({
   validateSearch: (s) => search.parse(s),
   head: () => ({
     meta: [
-      { title: "Ask the Stoics — The Stoic Reference" },
-      { name: "description", content: "Get sourced Stoic quotes and modern interpretations for any question." },
+      { title: "Ask the Stoics — Sourced Answers from Marcus Aurelius, Seneca & Epictetus" },
+      { name: "description", content: "Ask any question and get sourced Stoic quotes with modern interpretations from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus." },
+      { property: "og:title", content: "Ask the Stoics" },
+      { property: "og:description", content: "Sourced Stoic answers to any question." },
+      { property: "og:url", content: "https://askthestoics.org/ask" },
     ],
+    links: [{ rel: "canonical", href: "https://askthestoics.org/ask" }],
   }),
   component: AskPage,
 });

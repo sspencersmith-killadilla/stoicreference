@@ -101,6 +101,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "The Stoic Reference",
+          alternateName: "Ask the Stoics",
+          url: "https://askthestoics.org",
+          description: "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://askthestoics.org/ask?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "The Stoic Reference",
+          url: "https://askthestoics.org",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -173,9 +200,21 @@ function SiteHeader() {
 function SiteFooter() {
   return (
     <footer className="border-t border-border mt-24">
-      <div className="mx-auto max-w-6xl px-6 md:px-10 py-8 text-[11px] text-foreground/60 flex flex-wrap items-center justify-between gap-3">
-        <span className="small-caps text-foreground/80">The Stoic Reference — Ref. 4.01</span>
-        <span className="font-sans">Sourced from public-domain translations · Interpretations are AI-assisted; verify before quoting.</span>
+      <div className="mx-auto max-w-6xl px-6 md:px-10 py-8 text-[11px] text-foreground/60 flex flex-col gap-4">
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 small-caps text-[10px]">
+          <Link to="/what-is-stoicism" className="text-foreground/70 hover:text-ink transition-colors">What is Stoicism?</Link>
+          <Link to="/stoic-quotes" className="text-foreground/70 hover:text-ink transition-colors">Stoic Quotes</Link>
+          <Link to="/philosophers" className="text-foreground/70 hover:text-ink transition-colors">Philosophers</Link>
+          <Link to="/themes" className="text-foreground/70 hover:text-ink transition-colors">Themes</Link>
+          <Link to="/history" className="text-foreground/70 hover:text-ink transition-colors">History</Link>
+          <Link to="/ask" className="text-foreground/70 hover:text-ink transition-colors">Ask</Link>
+          <Link to="/wordsearch" className="text-foreground/70 hover:text-ink transition-colors">Word Search</Link>
+          <Link to="/about" className="text-foreground/70 hover:text-ink transition-colors">About</Link>
+        </nav>
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+          <span className="small-caps text-foreground/80">The Stoic Reference — Ref. 4.01</span>
+          <span className="font-sans">Sourced from public-domain translations · Interpretations are AI-assisted; verify before quoting.</span>
+        </div>
       </div>
     </footer>
   );

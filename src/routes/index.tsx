@@ -16,7 +16,9 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Type any question about life. Get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus, with modern interpretations." },
       { property: "og:title", content: "The Stoic Reference" },
       { property: "og:description", content: "Type any question about life. Get sourced Stoic quotes with modern interpretations." },
+      { property: "og:url", content: "https://askthestoics.org/" },
     ],
+    links: [{ rel: "canonical", href: "https://askthestoics.org/" }],
   }),
   component: Index,
 });

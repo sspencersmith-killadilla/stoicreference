@@ -4,9 +4,13 @@ import { THEMES } from "@/data/themes";
 export const Route = createFileRoute("/themes")({
   head: () => ({
     meta: [
-      { title: "Themes — The Stoic Reference" },
-      { name: "description", content: "Stoic teachings organized by subject: control, death, anger, virtue, time, and more." },
+      { title: "Stoic Themes — Control, Death, Anger, Virtue & More" },
+      { name: "description", content: "Stoic teachings organized by subject: what's in your control, mortality, anger, virtue, time, fate, and more." },
+      { property: "og:title", content: "Stoic Themes" },
+      { property: "og:description", content: "Stoic teachings organized by subject." },
+      { property: "og:url", content: "https://askthestoics.org/themes" },
     ],
+    links: [{ rel: "canonical", href: "https://askthestoics.org/themes" }],
   }),
   component: ThemesIndex,
 });

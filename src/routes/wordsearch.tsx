@@ -10,7 +10,9 @@ export const Route = createFileRoute("/wordsearch")({
       { name: "description", content: "A fresh themed word search every day, drawn from the Stoic canon. Find the hidden virtues." },
       { property: "og:title", content: "Daily Stoic Word Search" },
       { property: "og:description", content: "A fresh themed word search every day, drawn from the Stoic canon." },
+      { property: "og:url", content: "https://askthestoics.org/wordsearch" },
     ],
+    links: [{ rel: "canonical", href: "https://askthestoics.org/wordsearch" }],
   }),
   component: WordSearchPage,
 });
