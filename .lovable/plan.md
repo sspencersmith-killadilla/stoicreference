@@ -1,90 +1,60 @@
-## What changes
+## Reality check first
 
-A site-wide identity pass + homepage rebuild matching the chosen "Interactive specimen" direction. The current aurora-bg cream/cobalt aesthetic is retired in favor of a stricter editorial system.
+Per Semrush, **"stoicism" is KDI 68 and "stoics" is KDI 70**. The top 10 is locked up by Wikipedia, Stanford Encyclopedia of Philosophy, IEP, Daily Stoic, Merriam-Webster, and YouTube — sites with decades of authority and thousands of backlinks. Your domain currently has no measurable organic footprint in Semrush.
 
-## Design system (`src/styles.css` + `__root.tsx`)
+Cracking top 5 for the head terms is a multi-year project that requires backlinks (PR, guest posts, citations from .edu/.org sites) more than on-page work. **This plan gets the site SEO-correct, indexable, and aimed at winnable queries first**, with a moonshot pillar page for the head terms. Realistic outcome in 6–12 months: top 5 for long-tail "ask"-style queries and quote-specific searches, and a slow climb on the head terms.
 
-- **Palette (Paper & Ink)** — locked tokens:
-  - `--background: #F5F3EE` (warm paper)
-  - `--card: #F5F3EE` (no card lift; bordered, not shadowed)
-  - `--foreground: #2D2D2D` (ink)
-  - `--ink-strong: #0D0D0D` (display + buttons)
-  - `--border: #E8E4DD` (hairline rule)
-  - `--inverse-bg: #0D0D0D`, `--inverse-fg: #F5F3EE` (puzzle tray, footer accent)
-  - Retire the cobalt `--accent` and the aurora gradient. The accent role is taken by `--ink-strong` (black on cream).
-- **Type** — replace Cormorant/Inter with Libre Baskerville (display) + IBM Plex Sans (body), loaded via `<link>` in `__root.tsx` head (per Tailwind v4 remote-CSS rules). Update `--font-display` and `--font-sans` tokens; keep the existing `font-display` / `pullquote` / `small-caps` utility class names so callsites don't break.
-- **Shadows** — remove `shadow-soft` / `shadow-pop`. Editorial system uses 1px `border-border` only.
-- **Wordmark** — italic Libre Baskerville set under a small-caps eyebrow ("A working reference of Stoicism"), per the chosen direction.
+---
 
-## Homepage (`src/routes/index.tsx`) — rebuilt
+## Phase 1 — Technical baseline (immediate, ~1 build session)
 
-Above the fold, magazine layout in a single bordered frame:
+1. **`src/routes/sitemap[.]xml.ts`** — server route that lists `/`, `/about`, `/ask`, `/history`, `/philosophers`, `/themes`, `/wordsearch`, plus one entry per philosopher slug, theme slug, and quote id (pulled from the same source the `$slug`/`$id` loaders use).
+2. **`public/robots.txt`** — `User-agent: *` / `Allow: /` plus `Sitemap: https://askthestoics.org/sitemap.xml`.
+3. **Per-route `head()`** on every route file — unique `title`, `description`, `og:title`, `og:description`, `og:url`, `og:type`, self-referencing canonical. Replace any generic root title currently leaking through.
+4. **JSON-LD per route type**:
+   - `__root.tsx`: `WebSite` + `Organization` (sitewide).
+   - `q.$id.tsx`: `Quotation` schema (`text`, `author`, `citation`) — this is how Goodreads dominates quote SERPs.
+   - `philosophers.$slug.tsx`: `Person` schema.
+   - `themes.$slug.tsx`: `CollectionPage` + `BreadcrumbList`.
+   - `about.tsx`, `history.tsx`: `Article`.
+5. **OG images** — generate a branded share image per top-level route (paper-and-ink style matching the site). Quote pages get a dynamic OG image showing the quote text.
+6. **Render-on-server check** — confirm `/q/:id`, `/philosophers/:slug`, `/themes/:slug` ship full HTML (loader data in initial response), not just a JS shell. Google can render JS but indexes server-HTML faster and more reliably.
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│ A WORKING REFERENCE OF STOICISM         Philosophers Themes │
-│ The Stoic Reference (italic display)    Archive             │
-├──────────────────────────────────────────┬──────────────────┤
-│                                          │ CONSULT THE      │
-│   ✻  (faint glyph, top-left)             │ ARCHIVE          │
-│                                          │                  │
-│   DAILY SPECIMEN ───── June 21           │ Type any         │
-│                                          │ question…        │
-│   "It is not possible to live well       │ ─────────────    │
-│   today unless one thinks of it as       │ Ask the Stoics   │
-│   one's last."                           │      CONSULT →   │
-│                                          │                  │
-│   ─── MUSONIUS RUFUS                     │ COMMON INQUIRIES │
-│       Lectures · VI                      │ · How do I…      │
-│                                          │ · What should…   │
-│                                          ├──────────────────┤
-│                                          │ ▓ DAILY PUZZLE   │
-│                                          │ Voices of the    │
-│                                          │ Stoa  ▣▣▣▣       │
-│                                          │ Play now ───     │
-├──────────────────────────────────────────┴──────────────────┤
-│ BROWSE BY  Philosophers (10)   Themes (9)   public domain…  │
-└─────────────────────────────────────────────────────────────┘
-```
+## Phase 2 — Quote and entity pages (high-volume, winnable)
 
-- Left 8/12: today's meditation as the **specimen** — large Libre Baskerville quote, hairline-rule + author + source citation underneath. Faint `✻` glyph in the upper-left as the structural identity mark. Subtle entry animation: quote text fades in line-by-line; hairline rule extends in from the left.
-- Right 4/12 split vertically:
-  - Top tray: "Consult the Archive" — slim editorial ask input (border-bottom only, no rounded pill), 3 sample inquiries below.
-  - Bottom tray: puzzle teaser on **inverted #0D0D0D** background — the one tonal counterpoint in the layout.
-- Footer band: Philosophers / Themes index counts + public-domain colophon.
+7. **`/q/:id` title format**: `"{Quote text, truncated} — {Philosopher}, {Work}"`. Description: full quote + 1-sentence context. H1 is the quote itself.
+8. **`/philosophers/:slug`**: title `"{Name} — Stoic Philosopher | Quotes, Works, Ideas"`. Add a 200–400 word bio section (currently likely just quote list) — thin pages don't rank.
+9. **`/themes/:slug`**: title `"Stoicism on {Theme} — Quotes & Teachings"`. Add a 150–300 word intro explaining the Stoic view on that theme above the quote grid.
+10. **Internal linking** — every quote page links to its philosopher page and theme pages; philosopher pages link to top themes; themes link back to philosophers. This is how Wikipedia got dominant.
 
-Below the fold (kept from current, restyled to the new system):
-- Full Philosophers list as an editorial two-column index with hanging dates (no cards, no shadows, hairline rule between rows).
-- Full Themes as a hairline-bordered tag list.
-- Recent questions if present.
+## Phase 3 — Content pillar pages (the moonshot)
 
-## Site-wide propagation (other routes)
+11. **New route `/what-is-stoicism`** — the head-term landing page. 2,000–3,000 words, original, structured with H2s matching the "People Also Ask" questions for "stoicism" (call `semrush--keyword_research` for "stoicism" before writing to get the exact questions). Includes `FAQPage` schema. This is the only page with a real shot at the head term, and only after backlinks accumulate.
+12. **New route `/stoic-quotes`** — index/landing page targeting "stoic quotes" (high volume, lower difficulty than "stoicism"). Curated highlights linking into `/q/:id` pages.
+13. **New routes for clear long-tail wins** — pick 5–8 from `semrush--keyword_research` output, e.g. `/stoic-advice-for-anxiety`, `/marcus-aurelius-on-death`. Each is a real essay, not a thin redirect.
 
-Restyle to the new system — same tokens, same shell. Edit (no rebuilds):
-- `__root.tsx` — wordmark, nav, font links, drop aurora.
-- `src/components/QuoteCard.tsx` — remove `shadow-soft`/`shadow-pop`, replace decorative `&ldquo;` opener with the `✻` glyph in the top-left, retune type to Libre Baskerville, swap accent color refs.
-- `src/components/AskForm.tsx` — slim editorial input (border-bottom variant), drop the pill.
-- `src/components/ShareQuote.tsx` — button labels become small-caps text links, not chips.
-- `src/routes/philosophers.tsx`, `themes.tsx`, `*.\$slug.tsx`, `wordsearch.tsx`, `history.tsx`, `about.tsx`, `q.\$id.tsx`, `ask.tsx` — adopt the same paper frame + hairline rules; remove gradient backgrounds; restyle headings and buttons. Functionality unchanged.
+## Phase 4 — Off-page (the part code can't do)
 
-## Out of scope
+This is what the plan **cannot deliver from inside Lovable** — flagging it so expectations are right:
+- Backlinks from philosophy blogs, Reddit communities, Substack, YouTube creators, .edu citations.
+- A consistent publishing cadence (1–2 new long-form posts/month) for at least 6 months.
+- Google Search Console verification + sitemap submission (already supported via the GSC connector — can be done after deploy).
 
-- No business-logic changes (data, routing, server functions, OG card endpoint untouched).
-- No new pages or features.
-- No 3D, WebGL, photography, dark mode toggle.
-- The puzzle, the share image endpoint, auth flows: unchanged.
+---
 
 ## Technical notes
 
-- Fonts loaded via `<link rel="stylesheet">` in `__root.tsx` head — Libre Baskerville (400/700 + italic) + IBM Plex Sans (400/500/600). Never `@import` URLs in styles.css under Tailwind v4.
-- All color/border/shadow refs continue to use semantic CSS tokens; no `#hex` literals or `text-white`/`bg-black` in JSX.
-- Animation: a single `animate-fade-in` on the quote block plus a CSS `@keyframes rule-extend` for the hairline. No framer-motion needed.
-- Existing `aurora-bg` utility is removed; search-replace all usages.
-- Existing `QuoteCard` API (props) is preserved — visual change only.
-- Crawlers cache OG previews; this redesign doesn't change OG image URLs, so shared links keep working as-is.
+- Files to add: `src/routes/sitemap[.]xml.ts`, `public/robots.txt`, `src/routes/what-is-stoicism.tsx`, `src/routes/stoic-quotes.tsx`, plus 5–8 long-tail route files.
+- Files to edit: every existing route file in `src/routes/` to add or upgrade `head()`; `__root.tsx` for sitewide JSON-LD and OG defaults.
+- OG images: generated via `imagegen` into `src/assets/og/` and referenced as absolute URLs (`https://askthestoics.org/...`) in meta tags.
+- Dynamic OG images for quote pages: a server route at `/api/og/q/$id` that renders an image — defer this to a follow-up; static branded fallback ships in Phase 1.
 
-## Files
+## Out of scope for this plan
 
-- **Edit**: `src/styles.css`, `src/routes/__root.tsx`, `src/routes/index.tsx`, `src/components/QuoteCard.tsx`, `src/components/AskForm.tsx`, `src/components/ShareQuote.tsx`, `src/routes/philosophers.tsx`, `src/routes/philosophers.$slug.tsx`, `src/routes/themes.tsx`, `src/routes/themes.$slug.tsx`, `src/routes/wordsearch.tsx`, `src/routes/history.tsx`, `src/routes/about.tsx`, `src/routes/q.$id.tsx`, `src/routes/ask.tsx`.
-- **Add**: none (no new components needed — the glyph and hairline are inline SVG/CSS).
-- **Memory**: save `mem://design/identity` capturing Paper & Ink tokens, Libre Baskerville + IBM Plex Sans pairing, and "✻ as structural glyph, no shadows, hairline rules only" so future edits stay on-system.
+- Backlink building, social promotion, GSC submission (off-platform).
+- A blog CMS (can add later if you want a publishing workflow vs. hardcoded routes).
+- Multi-language SEO.
+
+## Suggested rollout
+
+Phase 1 and 2 in one build session. Phase 3 pillar page in a second session (it needs you to draft or approve the long-form copy). Long-tail routes can land one at a time as you decide which queries to target.
