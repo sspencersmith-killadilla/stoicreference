@@ -9,16 +9,54 @@ export const Route = createFileRoute("/philosophers/$slug")({
     if (!p) throw notFound();
     return { philosopher: p };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.philosopher.name} — The Stoic Reference` },
-          { name: "description", content: loaderData.philosopher.bio.slice(0, 160) },
-          { property: "og:title", content: loaderData.philosopher.name },
-          { property: "og:description", content: loaderData.philosopher.bio.slice(0, 160) },
-        ]
-      : [],
-  }),
+  head: ({ loaderData, params }) => {
+    if (!loaderData) return { meta: [] };
+    const p = loaderData.philosopher;
+    const url = `https://askthestoics.org/philosophers/${params.slug}`;
+    const title = `${p.name} — Stoic Philosopher | Quotes, Works & Ideas`;
+    const desc = p.bio.replace(/\s+/g, " ").slice(0, 158);
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: `${p.name} — Stoic Philosopher` },
+        { property: "og:description", content: desc },
+        { property: "og:type", content: "profile" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:title", content: `${p.name} — Stoic Philosopher` },
+        { name: "twitter:description", content: desc },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: p.name,
+            description: p.bio,
+            jobTitle: "Stoic Philosopher",
+            url,
+            sameAs: [`https://en.wikipedia.org/wiki/${p.name.replace(/\s+/g, "_")}`],
+            knowsAbout: ["Stoicism", "Ethics", "Philosophy", ...p.works.map((w) => w.title)],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://askthestoics.org/" },
+              { "@type": "ListItem", position: 2, name: "Philosophers", item: "https://askthestoics.org/philosophers" },
+              { "@type": "ListItem", position: 3, name: p.name, item: url },
+            ],
+          }),
+        },
+      ],
+    };
+  },
   component: PhilosopherPage,
 });
 

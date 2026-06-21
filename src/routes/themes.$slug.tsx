@@ -8,16 +8,52 @@ export const Route = createFileRoute("/themes/$slug")({
     if (!t) throw notFound();
     return { theme: t };
   },
-  head: ({ loaderData }) => ({
-    meta: loaderData
-      ? [
-          { title: `${loaderData.theme.title} — The Stoic Reference` },
-          { name: "description", content: loaderData.theme.description.slice(0, 160) },
-          { property: "og:title", content: loaderData.theme.title },
-          { property: "og:description", content: loaderData.theme.description.slice(0, 160) },
-        ]
-      : [],
-  }),
+  head: ({ loaderData, params }) => {
+    if (!loaderData) return { meta: [] };
+    const t = loaderData.theme;
+    const url = `https://askthestoics.org/themes/${params.slug}`;
+    const title = `Stoicism on ${t.title} — Quotes & Teachings`;
+    const desc = t.description.slice(0, 158);
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: `Stoicism on ${t.title}` },
+        { property: "og:description", content: desc },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:title", content: `Stoicism on ${t.title}` },
+        { name: "twitter:description", content: desc },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: `Stoicism on ${t.title}`,
+            description: t.description,
+            url,
+            about: t.title,
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: "https://askthestoics.org/" },
+              { "@type": "ListItem", position: 2, name: "Themes", item: "https://askthestoics.org/themes" },
+              { "@type": "ListItem", position: 3, name: t.title, item: url },
+            ],
+          }),
+        },
+      ],
+    };
+  },
   component: ThemePage,
 });
 

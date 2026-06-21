@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WordsearchRouteImport } from './routes/wordsearch'
 import { Route as ThemesRouteImport } from './routes/themes'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as AskRouteImport } from './routes/ask'
@@ -30,6 +31,11 @@ const WordsearchRoute = WordsearchRouteImport.update({
 const ThemesRoute = ThemesRouteImport.update({
   id: '/themes',
   path: '/themes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PhilosophersRoute = PhilosophersRouteImport.update({
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/ask': typeof AskRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/themes': typeof ThemesRouteWithChildren
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/ask': typeof AskRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/themes': typeof ThemesRouteWithChildren
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/ask': typeof AskRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/themes': typeof ThemesRouteWithChildren
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/ask'
     | '/history'
     | '/philosophers'
+    | '/sitemap.xml'
     | '/themes'
     | '/wordsearch'
     | '/api/ask'
@@ -148,6 +158,7 @@ export interface FileRouteTypes {
     | '/ask'
     | '/history'
     | '/philosophers'
+    | '/sitemap.xml'
     | '/themes'
     | '/wordsearch'
     | '/api/ask'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/ask'
     | '/history'
     | '/philosophers'
+    | '/sitemap.xml'
     | '/themes'
     | '/wordsearch'
     | '/api/ask'
@@ -177,6 +189,7 @@ export interface RootRouteChildren {
   AskRoute: typeof AskRoute
   HistoryRoute: typeof HistoryRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ThemesRoute: typeof ThemesRouteWithChildren
   WordsearchRoute: typeof WordsearchRoute
   ApiAskRoute: typeof ApiAskRoute
@@ -198,6 +211,13 @@ declare module '@tanstack/react-router' {
       path: '/themes'
       fullPath: '/themes'
       preLoaderRoute: typeof ThemesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/philosophers': {
@@ -302,6 +322,7 @@ const rootRouteChildren: RootRouteChildren = {
   AskRoute: AskRoute,
   HistoryRoute: HistoryRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ThemesRoute: ThemesRouteWithChildren,
   WordsearchRoute: WordsearchRoute,
   ApiAskRoute: ApiAskRoute,

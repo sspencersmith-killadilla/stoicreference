@@ -101,6 +101,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "The Stoic Reference",
+          alternateName: "Ask the Stoics",
+          url: "https://askthestoics.org",
+          description: "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://askthestoics.org/ask?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "The Stoic Reference",
+          url: "https://askthestoics.org",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
