@@ -26,6 +26,20 @@ const ResponseSchema = z.object({
 });
 
 export const Route = createFileRoute("/api/ask")({
+
+});
+
+function extractJson(text: string): string {
+  const trimmed = text.trim();
+  const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const candidate = fenced ? fenced[1] : trimmed;
+  const start = candidate.indexOf("{");
+  const end = candidate.lastIndexOf("}");
+  if (start === -1 || end === -1) return candidate;
+  return candidate.slice(start, end + 1);
+}
+
+const _unused = createFileRoute("/api/ask")({
   server: {
     handlers: {
       POST: async ({ request }) => {
