@@ -1,5 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { getPhilosopher, quotesByAuthor, PHILOSOPHERS } from "@/data/philosophers";
+import { getPhilosopher, quotesByAuthor } from "@/data/philosophers";
+import type { Quote } from "@/data/quotes";
 import { QuoteCard } from "@/components/QuoteCard";
 
 export const Route = createFileRoute("/philosophers/$slug")({
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/philosophers/$slug")({
 
 function PhilosopherPage() {
   const { philosopher } = Route.useLoaderData();
-  const quotes = quotesByAuthor(philosopher.name as (typeof PHILOSOPHERS)[number]["name"] as Parameters<typeof quotesByAuthor>[0]);
+  const quotes = quotesByAuthor(philosopher.name as Quote["author"]);
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-12 md:py-16">
