@@ -1,16 +1,15 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ImageResponse, loadGoogleFont } from "@cf-wasm/og";
+import { ImageResponse } from "workers-og";
 import { QUOTES } from "@/data/quotes";
 import { createElement as h, type ReactNode } from "react";
 
-export const Route = createFileRoute("/api/og/q/$id")({
+export const Route = createFileRoute("/api/public/og/q/$id")({
   server: {
     handlers: {
-      GET: async ({ params }) => {
+      GET: async ({ params, request }) => {
         const quote = QUOTES.find((q) => q.id === params.id);
         if (!quote) throw notFound();
 
-        // Tier the body type size by length so long passages still fit.
         const len = quote.text.length;
         const bodySize = len <= 140 ? 64 : len <= 260 ? 52 : len <= 400 ? 42 : 34;
 
@@ -28,7 +27,6 @@ export const Route = createFileRoute("/api/og/q/$id")({
               color: "#1A1A1A",
             },
           },
-          // Header strip
           h(
             "div",
             {
@@ -57,7 +55,6 @@ export const Route = createFileRoute("/api/og/q/$id")({
               "askthestoics.org",
             ),
           ),
-          // Quote block
           h(
             "div",
             {
@@ -98,7 +95,6 @@ export const Route = createFileRoute("/api/og/q/$id")({
               quote.text,
             ),
           ),
-          // Attribution
           h(
             "div",
             {
@@ -145,10 +141,11 @@ export const Route = createFileRoute("/api/og/q/$id")({
         );
 
         try {
+          const fonts = await loadFonts(request);
           return new ImageResponse(card, {
             width: 1200,
             height: 630,
-            fonts: await loadFonts(),
+            fonts,
             headers: {
               "Cache-Control":
                 "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
@@ -175,13 +172,20 @@ type FontEntry = {
 
 let cachedFonts: FontEntry[] | null = null;
 
-async function loadFonts(): Promise<FontEntry[]> {
+async function loadFonts(request: Request): Promise<FontEntry[]> {
   if (cachedFonts) return cachedFonts;
+  const origin = new URL(request.url).origin;
+  const fetchFont = (path: string) =>
+    fetch(`${origin}${path}`).then((r) => {
+      if (!r.ok) throw new Error(`font fetch failed: ${path} ${r.status}`);
+      return r.arrayBuffer();
+    });
+
   const [inter400, inter600, cormorant, cormorantItalic] = await Promise.all([
-    loadGoogleFont("Inter", { weight: 400 }),
-    loadGoogleFont("Inter", { weight: 600 }),
-    loadGoogleFont("Cormorant Garamond", { weight: 500 }),
-    loadGoogleFont("Cormorant Garamond", { weight: 500, style: "italic" }),
+    fetchFont("/fonts/Inter-Regular.woff"),
+    fetchFont("/fonts/Inter-SemiBold.woff"),
+    fetchFont("/fonts/CormorantGaramond-Medium.woff"),
+    fetchFont("/fonts/CormorantGaramond-MediumItalic.woff"),
   ]);
 
   cachedFonts = [
