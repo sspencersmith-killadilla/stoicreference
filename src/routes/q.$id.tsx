@@ -53,7 +53,7 @@ export const Route = createFileRoute("/q/$id")({
     <div className="mx-auto max-w-2xl px-6 py-24 text-center">
       <p className="small-caps text-xs text-muted-foreground">Not found</p>
       <h1 className="font-display text-4xl mt-3">That quote isn't in the reference.</h1>
-      <Link to="/" className="mt-6 inline-block text-accent hover:underline">Return home →</Link>
+      <Link to="/" className="mt-6 inline-block text-ink hover:underline">Return home →</Link>
     </div>
   ),
   component: QuotePage,
@@ -68,7 +68,7 @@ function QuotePage() {
 
   return (
     <div className="relative">
-      <div className="absolute inset-x-0 top-0 h-[420px] aurora-bg -z-10" aria-hidden />
+      <div className="absolute inset-x-0 top-0 h-[420px] bg-paper -z-10" aria-hidden />
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <p className="small-caps text-xs text-muted-foreground text-center">
           A passage from {quote.author}

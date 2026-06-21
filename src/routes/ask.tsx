@@ -69,7 +69,7 @@ function AskPage() {
 
   return (
     <div className="relative">
-      <div className="absolute inset-x-0 top-0 h-[420px] aurora-bg -z-10" aria-hidden />
+      <div className="absolute inset-x-0 top-0 h-[420px] bg-paper -z-10" aria-hidden />
       <div className="mx-auto max-w-3xl px-6 pt-12 md:pt-16 pb-16">
         <AskForm />
 
@@ -82,7 +82,7 @@ function AskPage() {
           </div>
         ) : (
           <p className="mt-16 text-center text-muted-foreground">
-            Enter a question above. <Link to="/themes" className="text-accent hover:underline">Or browse by theme.</Link>
+            Enter a question above. <Link to="/themes" className="text-ink hover:underline">Or browse by theme.</Link>
           </p>
         )}
 

@@ -100,7 +100,7 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
 
   return (
     <div className="relative">
-      <div className="absolute inset-x-0 top-0 h-[420px] aurora-bg -z-10" aria-hidden />
+      <div className="absolute inset-x-0 top-0 h-[420px] bg-paper -z-10" aria-hidden />
       <div className="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-20">
         <header className="text-center mb-10">
           <p className="small-caps text-xs text-muted-foreground">{dateLabel}</p>
@@ -120,7 +120,7 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
                 return (
                   <li
                     key={w}
-                    className={`tracking-wider font-medium transition ${got ? "text-accent line-through" : "text-foreground/80"}`}
+                    className={`tracking-wider font-medium transition ${got ? "text-ink line-through" : "text-foreground/80"}`}
                   >
                     {w}
                   </li>
@@ -138,7 +138,7 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
           {/* Grid */}
           <div className="order-1 md:order-2 mx-auto w-full max-w-[520px]">
             <div
-              className={`rounded-2xl border border-border bg-card p-3 shadow-soft select-none ${flash === "miss" ? "ring-2 ring-destructive/40" : ""} ${flash === "hit" ? "ring-2 ring-accent/40" : ""}`}
+              className={`rounded-2xl border border-border bg-card p-3 shadow-soft select-none ${flash === "miss" ? "ring-2 ring-destructive/40" : ""} ${flash === "hit" ? "ring-2 ring-foreground/40" : ""}`}
               onMouseLeave={() => { setHover(null); }}
             >
               <div
@@ -162,10 +162,10 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
                         }}
                         onMouseEnter={() => { if (start) setHover({ r, c }); }}
                         className={`aspect-square flex items-center justify-center font-sans text-sm md:text-base font-medium uppercase tabular-nums transition-colors
-                          ${inFound ? "bg-accent/20 text-accent-foreground" : "bg-background text-foreground"}
-                          ${inSel ? "bg-accent/40 text-foreground" : ""}
-                          ${isStart ? "ring-2 ring-accent ring-inset" : ""}
-                          hover:bg-accent/15`}
+                          ${inFound ? "bg-accent/20 text-ink-foreground" : "bg-background text-foreground"}
+                          ${inSel ? "bg-foreground/30 text-ink" : ""}
+                          ${isStart ? "ring-2 ring-ink ring-inset" : ""}
+                          hover:bg-foreground/10`}
                         aria-label={`Row ${r + 1} column ${c + 1}: ${ch}`}
                       >
                         {ch}
@@ -179,8 +179,8 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
         </div>
 
         {solved && (
-          <div className="mt-12 mx-auto max-w-2xl rounded-2xl border border-accent/30 bg-accent/5 p-6 text-center shadow-soft">
-            <p className="small-caps text-xs text-accent">Solved</p>
+          <div className="mt-12 mx-auto max-w-2xl rounded-2xl border border-foreground/30 bg-foreground/5 p-6 text-center shadow-soft">
+            <p className="small-caps text-xs text-ink">Solved</p>
             <h2 className="mt-2 font-display text-3xl">All words found.</h2>
             <p className="mt-3 text-muted-foreground font-serif italic text-lg">{puzzle.note}</p>
             <div className="mt-5 flex flex-wrap gap-3 justify-center text-sm">
