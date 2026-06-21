@@ -1,6 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ImageResponse } from "@cf-wasm/og";
 import { QUOTES } from "@/data/quotes";
+import { createElement as h, type ReactNode } from "react";
 
 export const Route = createFileRoute("/api/og/q/$id")({
   server: {
@@ -13,79 +14,138 @@ export const Route = createFileRoute("/api/og/q/$id")({
         const len = quote.text.length;
         const bodySize = len <= 140 ? 64 : len <= 260 ? 52 : len <= 400 ? 42 : 34;
 
-        const html = `
-          <div style="
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            background: #FAF8F4;
-            padding: 72px 88px;
-            font-family: 'Inter';
-            color: #1A1A1A;
-            position: relative;
-          ">
-            <div style="
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              font-size: 18px;
-              letter-spacing: 0.22em;
-              text-transform: uppercase;
-              color: #6B6B6B;
-            ">
-              <span>The Stoic Reference</span>
-              <span style="display:flex;align-items:center;gap:10px;">
-                <span style="width:8px;height:8px;background:#1E40AF;border-radius:9999px;"></span>
-                askthestoics.org
-              </span>
-            </div>
-
-            <div style="
-              display: flex;
-              flex-direction: column;
-              flex: 1;
-              justify-content: center;
-              margin-top: 28px;
-            ">
-              <div style="
-                font-family: 'Cormorant';
-                font-style: italic;
-                font-size: 140px;
-                line-height: 0.7;
-                color: #1E40AF;
-                margin-bottom: 4px;
-              ">&ldquo;</div>
-              <div style="
-                font-family: 'Cormorant';
-                font-size: ${bodySize}px;
-                line-height: 1.18;
-                color: #1A1A1A;
-                max-width: 980px;
-                display: flex;
-              ">${escapeHtml(quote.text)}</div>
-            </div>
-
-            <div style="
-              display: flex;
-              flex-direction: column;
-              gap: 6px;
-              border-top: 1px solid rgba(0,0,0,0.12);
-              padding-top: 22px;
-            ">
-              <div style="font-size: 26px; font-weight: 600;">${escapeHtml(quote.author)}</div>
-              <div style="font-size: 18px; color: #6B6B6B; display:flex; gap:10px;">
-                <span style="font-style: italic;">${escapeHtml(quote.work)}</span>
-                <span>·</span>
-                <span style="letter-spacing: 0.08em;">${escapeHtml(quote.section)}</span>
-                ${quote.translator ? `<span>·</span><span>trans. ${escapeHtml(quote.translator)}</span>` : ""}
-              </div>
-            </div>
-          </div>
-        `;
+        const card: ReactNode = h(
+          "div",
+          {
+            style: {
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              height: "100%",
+              background: "#FAF8F4",
+              padding: "72px 88px",
+              fontFamily: "Inter",
+              color: "#1A1A1A",
+            },
+          },
+          // Header strip
+          h(
+            "div",
+            {
+              style: {
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                fontSize: 18,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "#6B6B6B",
+              },
+            },
+            h("span", null, "The Stoic Reference"),
+            h(
+              "span",
+              { style: { display: "flex", alignItems: "center", gap: 10 } },
+              h("span", {
+                style: {
+                  width: 8,
+                  height: 8,
+                  background: "#1E40AF",
+                  borderRadius: 9999,
+                },
+              }),
+              "askthestoics.org",
+            ),
+          ),
+          // Quote block
+          h(
+            "div",
+            {
+              style: {
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+                justifyContent: "center",
+                marginTop: 28,
+              },
+            },
+            h(
+              "div",
+              {
+                style: {
+                  fontFamily: "Cormorant",
+                  fontStyle: "italic",
+                  fontSize: 140,
+                  lineHeight: 0.7,
+                  color: "#1E40AF",
+                  marginBottom: 4,
+                },
+              },
+              "\u201C",
+            ),
+            h(
+              "div",
+              {
+                style: {
+                  fontFamily: "Cormorant",
+                  fontSize: bodySize,
+                  lineHeight: 1.18,
+                  color: "#1A1A1A",
+                  maxWidth: 980,
+                  display: "flex",
+                },
+              },
+              quote.text,
+            ),
+          ),
+          // Attribution
+          h(
+            "div",
+            {
+              style: {
+                display: "flex",
+                flexDirection: "column",
+                borderTop: "1px solid rgba(0,0,0,0.12)",
+                paddingTop: 22,
+              },
+            },
+            h(
+              "div",
+              { style: { fontSize: 26, fontWeight: 600, display: "flex" } },
+              quote.author,
+            ),
+            h(
+              "div",
+              {
+                style: {
+                  fontSize: 18,
+                  color: "#6B6B6B",
+                  display: "flex",
+                  gap: 10,
+                  marginTop: 6,
+                },
+              },
+              h("span", { style: { fontStyle: "italic" } }, quote.work),
+              h("span", null, "\u00B7"),
+              h(
+                "span",
+                { style: { letterSpacing: "0.08em" } },
+                quote.section,
+              ),
+              quote.translator
+                ? h(
+                    "span",
+                    { style: { display: "flex", gap: 10 } },
+                    h("span", null, "\u00B7"),
+                    h("span", null, `trans. ${quote.translator}`),
+                  )
+                : null,
+            ),
+          ),
+        );
 
         try {
-          return new ImageResponse(html as unknown as React.ReactElement, {
+          return new ImageResponse(card, {
             width: 1200,
             height: 630,
             fonts: await loadFonts(),
@@ -105,15 +165,6 @@ export const Route = createFileRoute("/api/og/q/$id")({
     },
   },
 });
-
-function escapeHtml(s: string) {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
 
 type FontEntry = {
   name: string;
