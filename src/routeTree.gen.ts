@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WordsearchRouteImport } from './routes/wordsearch'
+import { Route as WhatIsStoicismRouteImport } from './routes/what-is-stoicism'
 import { Route as ThemesRouteImport } from './routes/themes'
+import { Route as StoicQuotesRouteImport } from './routes/stoic-quotes'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
 import { Route as HistoryRouteImport } from './routes/history'
@@ -28,9 +30,19 @@ const WordsearchRoute = WordsearchRouteImport.update({
   path: '/wordsearch',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WhatIsStoicismRoute = WhatIsStoicismRouteImport.update({
+  id: '/what-is-stoicism',
+  path: '/what-is-stoicism',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ThemesRoute = ThemesRouteImport.update({
   id: '/themes',
   path: '/themes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoicQuotesRoute = StoicQuotesRouteImport.update({
+  id: '/stoic-quotes',
+  path: '/stoic-quotes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -96,7 +108,9 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stoic-quotes': typeof StoicQuotesRoute
   '/themes': typeof ThemesRouteWithChildren
+  '/what-is-stoicism': typeof WhatIsStoicismRoute
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
@@ -111,7 +125,9 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stoic-quotes': typeof StoicQuotesRoute
   '/themes': typeof ThemesRouteWithChildren
+  '/what-is-stoicism': typeof WhatIsStoicismRoute
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
@@ -127,7 +143,9 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/stoic-quotes': typeof StoicQuotesRoute
   '/themes': typeof ThemesRouteWithChildren
+  '/what-is-stoicism': typeof WhatIsStoicismRoute
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
@@ -144,7 +162,9 @@ export interface FileRouteTypes {
     | '/history'
     | '/philosophers'
     | '/sitemap.xml'
+    | '/stoic-quotes'
     | '/themes'
+    | '/what-is-stoicism'
     | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
@@ -159,7 +179,9 @@ export interface FileRouteTypes {
     | '/history'
     | '/philosophers'
     | '/sitemap.xml'
+    | '/stoic-quotes'
     | '/themes'
+    | '/what-is-stoicism'
     | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
@@ -174,7 +196,9 @@ export interface FileRouteTypes {
     | '/history'
     | '/philosophers'
     | '/sitemap.xml'
+    | '/stoic-quotes'
     | '/themes'
+    | '/what-is-stoicism'
     | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
@@ -190,7 +214,9 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StoicQuotesRoute: typeof StoicQuotesRoute
   ThemesRoute: typeof ThemesRouteWithChildren
+  WhatIsStoicismRoute: typeof WhatIsStoicismRoute
   WordsearchRoute: typeof WordsearchRoute
   ApiAskRoute: typeof ApiAskRoute
   QIdRoute: typeof QIdRoute
@@ -206,11 +232,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WordsearchRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/what-is-stoicism': {
+      id: '/what-is-stoicism'
+      path: '/what-is-stoicism'
+      fullPath: '/what-is-stoicism'
+      preLoaderRoute: typeof WhatIsStoicismRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/themes': {
       id: '/themes'
       path: '/themes'
       fullPath: '/themes'
       preLoaderRoute: typeof ThemesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stoic-quotes': {
+      id: '/stoic-quotes'
+      path: '/stoic-quotes'
+      fullPath: '/stoic-quotes'
+      preLoaderRoute: typeof StoicQuotesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -323,7 +363,9 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StoicQuotesRoute: StoicQuotesRoute,
   ThemesRoute: ThemesRouteWithChildren,
+  WhatIsStoicismRoute: WhatIsStoicismRoute,
   WordsearchRoute: WordsearchRoute,
   ApiAskRoute: ApiAskRoute,
   QIdRoute: QIdRoute,
