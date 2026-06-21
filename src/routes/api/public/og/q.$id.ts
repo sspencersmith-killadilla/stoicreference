@@ -1,5 +1,4 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ImageResponse } from "workers-og";
 import { QUOTES } from "@/data/quotes";
 import { createElement as h, type ReactNode } from "react";
 
@@ -7,6 +6,7 @@ export const Route = createFileRoute("/api/public/og/q/$id")({
   server: {
     handlers: {
       GET: async ({ params, request }) => {
+        const { ImageResponse } = await import("workers-og");
         const quote = QUOTES.find((q) => q.id === params.id);
         if (!quote) throw notFound();
 
