@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ImageResponse } from "@cf-wasm/og";
+import { ImageResponse } from "workers-og";
 import { QUOTES } from "@/data/quotes";
 import { createElement as h, type ReactNode } from "react";
 
