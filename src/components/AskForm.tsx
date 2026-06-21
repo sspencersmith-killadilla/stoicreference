@@ -25,19 +25,19 @@ export function AskForm({ autoFocus = false }: { autoFocus?: boolean }) {
           e.preventDefault();
           submit(q);
         }}
-        className="relative flex items-end gap-3 border-b-2 border-foreground/80 focus-within:border-ink transition-colors"
+        className="relative grid grid-cols-[minmax(0,1fr)_auto] items-end gap-6 border-b-2 border-foreground/80 pr-10 focus-within:border-ink transition-colors"
       >
         <input
           autoFocus={autoFocus}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Ask the Stoics…"
-          className="flex-1 bg-transparent text-lg md:text-xl py-3 font-display italic focus:outline-none placeholder:text-foreground/30"
+          className="min-w-0 bg-transparent text-lg md:text-xl py-3 font-display italic focus:outline-none placeholder:text-foreground/30"
           maxLength={500}
         />
         <button
           type="submit"
-          className="shrink-0 small-caps text-[10px] text-ink hover:translate-x-1 transition-transform pb-4 mr-8 pr-2 cursor-pointer"
+          className="shrink-0 small-caps text-[10px] text-ink hover:translate-x-1 transition-transform pb-4 cursor-pointer"
         >
           Consult <span aria-hidden>→</span>
         </button>
