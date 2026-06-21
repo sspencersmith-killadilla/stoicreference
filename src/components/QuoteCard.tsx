@@ -64,6 +64,18 @@ export function QuoteCard({
 
 function authorSlug(name: Quote["author"]): string {
   switch (name) {
+    case "Zeno of Citium":
+      return "zeno-of-citium";
+    case "Cleanthes":
+      return "cleanthes";
+    case "Chrysippus":
+      return "chrysippus";
+    case "Panaetius of Rhodes":
+      return "panaetius-of-rhodes";
+    case "Posidonius":
+      return "posidonius";
+    case "Cato the Younger":
+      return "cato-the-younger";
     case "Marcus Aurelius":
       return "marcus-aurelius";
     case "Seneca":
