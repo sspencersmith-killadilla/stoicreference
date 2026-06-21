@@ -6,7 +6,7 @@ import { QUOTES } from "@/data/quotes";
 import { PHILOSOPHERS } from "@/data/philosophers";
 import { THEMES } from "@/data/themes";
 import { loadHistory, type HistoryEntry } from "@/lib/history";
-import { pickDailyPuzzle, generateGrid } from "@/data/wordsearch";
+import { pickDailyPuzzle } from "@/data/wordsearch";
 import { isSolved } from "@/lib/wordsearch-progress";
 import { useEffect, useState } from "react";
 
@@ -150,18 +150,14 @@ function pickDaily() {
 }
 
 function MiniGridPreview() {
-  // Decorative 5x5 grid hint for the puzzle teaser.
-  const pattern = [
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-    [1,1,1,1,1],
-  ];
+  // Decorative word-search hint for the puzzle teaser.
+  const letters = "VIRTUEAMORFATILOGOSCALMS".split("");
   return (
-    <div className="hidden sm:grid grid-cols-5 gap-[2px] bg-foreground/70 p-[2px] rounded-md w-20 h-20 shrink-0" aria-hidden>
-      {pattern.flat().map((v, i) => (
-        <div key={i} className={v ? "bg-background" : "bg-foreground"} />
+    <div className="hidden sm:grid grid-cols-5 gap-[1px] bg-foreground/10 p-[2px] rounded-md w-20 h-20 shrink-0" aria-hidden>
+      {letters.slice(0, 25).map((ch, i) => (
+        <div key={i} className="bg-background flex items-center justify-center text-[8px] font-medium text-muted-foreground">
+          {ch}
+        </div>
       ))}
     </div>
   );
