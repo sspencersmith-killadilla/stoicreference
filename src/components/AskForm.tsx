@@ -25,34 +25,36 @@ export function AskForm({ autoFocus = false }: { autoFocus?: boolean }) {
           e.preventDefault();
           submit(q);
         }}
-        className="relative flex items-center gap-2 rounded-full border border-border bg-card pl-5 pr-2 py-2 shadow-soft focus-within:ring-2 focus-within:ring-accent/40 transition"
+        className="relative flex items-end gap-3 border-b-2 border-foreground/80 focus-within:border-ink transition-colors"
       >
         <input
           autoFocus={autoFocus}
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Ask the Stoics anything…"
-          className="flex-1 bg-transparent text-base md:text-lg focus:outline-none placeholder:text-muted-foreground/70"
+          placeholder="Ask the Stoics…"
+          className="flex-1 bg-transparent text-lg md:text-xl py-3 font-display italic focus:outline-none placeholder:text-foreground/30"
           maxLength={500}
         />
         <button
           type="submit"
-          className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-medium hover:opacity-90 transition"
+          className="shrink-0 small-caps text-[10px] text-ink hover:translate-x-1 transition-transform pb-4 cursor-pointer"
         >
           Consult <span aria-hidden>→</span>
         </button>
       </form>
-      <div className="mt-4 flex flex-wrap gap-1.5">
+      <ul className="mt-6 space-y-2">
+        <li className="small-caps text-[10px] text-foreground/40">Common inquiries</li>
         {SUGGESTIONS.map((s) => (
-          <button
-            key={s}
-            onClick={() => submit(s)}
-            className="text-xs text-muted-foreground hover:text-foreground border border-border bg-background rounded-full px-3 py-1.5 hover:bg-secondary transition"
-          >
-            {s}
-          </button>
+          <li key={s}>
+            <button
+              onClick={() => submit(s)}
+              className="text-left text-[13px] text-foreground/80 hover:text-ink hover:underline decoration-border underline-offset-4 transition-colors"
+            >
+              · {s}
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
