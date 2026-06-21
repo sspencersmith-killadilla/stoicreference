@@ -37,7 +37,7 @@ export function AskForm({ autoFocus = false }: { autoFocus?: boolean }) {
         />
         <button
           type="submit"
-          className="shrink-0 small-caps text-[10px] text-ink hover:translate-x-1 transition-transform pb-4 mr-3 cursor-pointer"
+          className="shrink-0 small-caps text-[10px] text-ink hover:translate-x-1 transition-transform pb-4 mr-8 pr-2 cursor-pointer"
         >
           Consult <span aria-hidden>→</span>
         </button>
