@@ -25,29 +25,29 @@ export function AskForm({ autoFocus = false }: { autoFocus?: boolean }) {
           e.preventDefault();
           submit(q);
         }}
-        className="flex flex-col sm:flex-row gap-2"
+        className="relative flex items-center gap-2 rounded-full border border-border bg-card pl-5 pr-2 py-2 shadow-soft focus-within:ring-2 focus-within:ring-accent/40 transition"
       >
         <input
           autoFocus={autoFocus}
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Ask the Stoics anything…"
-          className="flex-1 bg-card border border-border rounded-md px-4 py-3 text-base font-serif text-lg focus:outline-none focus:ring-2 focus:ring-ring/40"
+          className="flex-1 bg-transparent text-base md:text-lg focus:outline-none placeholder:text-muted-foreground/70"
           maxLength={500}
         />
         <button
           type="submit"
-          className="bg-primary text-primary-foreground px-6 py-3 rounded-md text-sm font-medium hover:opacity-90 transition"
+          className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-foreground text-background px-5 py-2.5 text-sm font-medium hover:opacity-90 transition"
         >
-          Consult
+          Consult <span aria-hidden>→</span>
         </button>
       </form>
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-1.5">
         {SUGGESTIONS.map((s) => (
           <button
             key={s}
             onClick={() => submit(s)}
-            className="text-xs text-muted-foreground hover:text-foreground border border-border/70 rounded-full px-3 py-1 hover:bg-accent transition"
+            className="text-xs text-muted-foreground hover:text-foreground border border-border bg-background rounded-full px-3 py-1.5 hover:bg-secondary transition"
           >
             {s}
           </button>
