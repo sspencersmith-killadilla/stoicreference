@@ -162,7 +162,7 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
                         }}
                         onMouseEnter={() => { if (start) setHover({ r, c }); }}
                         className={`aspect-square flex items-center justify-center font-sans text-sm md:text-base font-medium uppercase tabular-nums transition-colors
-                          ${inFound ? "bg-accent/20 text-ink-foreground" : "bg-background text-foreground"}
+                          ${inFound ? "bg-accent/20 text-ink" : "bg-background text-foreground"}
                           ${inSel ? "bg-foreground/30 text-ink" : ""}
                           ${isStart ? "ring-2 ring-ink ring-inset" : ""}
                           hover:bg-foreground/10`}
