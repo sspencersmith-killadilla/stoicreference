@@ -1,58 +1,36 @@
-## Stoic Reference — Build Plan
+## Add six early & middle Stoics
 
-A reference site for Stoicism with an AI-powered question search, philosopher and theme browsing, daily quote, and in-browser history of past questions.
+Expand the reference beyond the four Roman Imperial Stoics to cover the Greek founders and the Roman Republican/Middle Stoa figures.
 
-### Pages (TanStack routes)
+### Philosophers to add
 
-- `/` — Home. Daily Stoic quote (rotates by date), prominent "Ask the Stoics" search bar, links to philosophers and themes, recent past questions from localStorage.
-- `/ask` — Question results page. Shows the question, 3–6 relevant quotes (text, author, source citation, translator note where known), plus a short modern interpretation for each, and an overall synthesis. Saves to localStorage history.
-- `/history` — Past questions saved in this browser, with delete + re-open.
-- `/philosophers` — Index of Marcus Aurelius, Seneca, Epictetus, Musonius Rufus.
-- `/philosophers/$slug` — Bio, key works, ~8 curated quotes with sources.
-- `/themes` — Index of themes (Control, Death, Anger, Adversity, Virtue, Desire, Time, Friendship, Fear, Fate).
-- `/themes/$slug` — Theme description + curated quotes for that theme.
-- `/about` — What Stoicism is, how the site works, attribution note.
+1. **Zeno of Citium** (c. 334–262 BCE) — founder of Stoicism, taught in the Stoa Poikile in Athens.
+2. **Cleanthes** (c. 330–230 BCE) — Zeno's successor as head of the Stoa; author of the *Hymn to Zeus*.
+3. **Chrysippus** (c. 279–206 BCE) — third head of the Stoa; systematizer ("Without Chrysippus, there would be no Stoa").
+4. **Panaetius of Rhodes** (c. 185–110 BCE) — head of the Middle Stoa; brought Stoicism to Rome via the Scipionic Circle.
+5. **Posidonius** (c. 135–51 BCE) — polymath student of Panaetius; teacher of Cicero.
+6. **Cato the Younger** (95–46 BCE) — Roman senator; Stoic exemplar held up by Seneca as a model of virtue. (Wrote nothing; quotes are reported sayings preserved by Plutarch, Cicero, Seneca.)
 
-### Data model
+### Data changes (`src/data/quotes.ts`)
 
-Curated seed data lives in `src/data/` as typed TS modules (no DB needed — matches the "save in this browser" preference and keeps the build simple):
+Extend the `Quote["author"]` union to include the six new names. Add ~3–5 quotes per philosopher drawn from surviving fragments and ancient testimonia (Diogenes Laërtius, Stobaeus, Cicero, Plutarch, Seneca). For figures who left no direct writings (Zeno, Cleanthes mostly, Chrysippus mostly, Cato entirely), cite the reporting source in `work` / `section` (e.g. `work: "Fragments (in Diogenes Laërtius)"`, `section: "Lives 7.87"`) and note this clearly. Cleanthes gets the *Hymn to Zeus* directly.
 
-- `philosophers.ts` — slug, name, era, bio, key works, quotes.
-- `themes.ts` — slug, title, description, related quote IDs.
-- `quotes.ts` — id, text, author, work, section (e.g. "Meditations 4.7"), translator, themes[]. ~80–120 canonical, verified quotes seeded.
+Tag each quote with existing themes where they fit (virtue, fate, control, death, desire, etc.).
 
-Daily quote = deterministic pick from `quotes.ts` keyed by date so it's stable per day.
+### Data changes (`src/data/philosophers.ts`)
 
-### AI Q&A (hybrid)
+Add six new `Philosopher` entries with slug, name, era, bio (3–5 sentences in the existing voice), and `works` list. Order chronologically in the array: Zeno → Cleanthes → Chrysippus → Panaetius → Posidonius → Cato → Seneca → Musonius → Epictetus → Marcus. Update existing Roman entries' order accordingly.
 
-Server route `src/routes/api/ask.ts` (POST) using AI SDK + Lovable AI Gateway (`google/gemini-3-flash-preview`) with structured output (`Output.object` via Zod):
+Extend the `authorSlug()` switch in `src/components/QuoteCard.tsx` to handle the six new author names.
 
-1. Receives `{ question }`.
-2. Sends the full curated `quotes.ts` list (compact form: id, text, author, source, themes) to the model as context.
-3. Model returns `{ picks: [{ quoteId, interpretation, relevance }], synthesis }` — picks are chosen from the supplied IDs (canonical, sourced).
-4. Model may also return `additional: [{ text, author, source, interpretation }]` for gaps not covered by the seed set, clearly labeled "AI-suggested attribution — verify".
-5. Server resolves picks back to full quote records and returns them.
+### Display
 
-Client calls via `fetch('/api/ask', ...)` from the `/ask` page. While streaming/loading, show a skeleton. Errors (429 rate limit, 402 credits) surface clearly.
+No new routes needed — `/philosophers`, `/philosophers/$slug`, and the existing quote/permalink routes already render any philosopher in the data. For philosophers with reported (not written) quotes, the existing citation line ("Work · Section · trans. X") already accommodates "Fragments (in Diogenes Laërtius) · Lives 7.87" style sources.
 
-### History (localStorage)
-
-- Key: `stoic.history.v1` → `Array<{ id, question, answeredAt, result }>`, capped at 50.
-- Saved on successful answer. `/history` lists, opens (re-renders cached result, no re-fetch), and deletes entries.
-- No threads, no accounts.
-
-### Design direction
-
-Editorial, calm, paper-like. Warm off-white background, deep ink text, a single accent (muted oxblood or olive). Serif display (Cormorant Garamond) for quotes and headings, clean sans (Inter) for UI. Generous whitespace, large pull-quote treatment, small caps for citations. No gradients, no purple-tech vibe.
-
-### Tech notes
-
-- Stack: existing TanStack Start template, Tailwind v4, shadcn/ui.
-- AI: Lovable AI Gateway, server-only key. No Lovable Cloud / DB needed.
-- SEO: per-route `head()` with unique title + description for philosophers and themes; `og:image` only on leaves where meaningful (skip for now).
-- `public/llms.txt` listing public pages.
-- Markdown rendering (`react-markdown`) for interpretations.
+Optionally add a small "Reported by ancient sources" note under the *Selected passages* heading on `philosophers.$slug.tsx` for figures whose quotes are all testimonia (Zeno, Chrysippus, Cato). Low-priority polish.
 
 ### Out of scope
 
-- User accounts, cross-device sync, comments, sharing links to a saved answer.
+- New themes
+- Reorganizing into "Early / Middle / Late Stoa" sections (could be a future enhancement)
+- AI prompt changes — the `/ask` route already passes the full quotes list, so new quotes are picked up automatically.
