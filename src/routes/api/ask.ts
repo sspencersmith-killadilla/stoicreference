@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { generateText, Output } from "ai";
+import { generateObject } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { QUOTES } from "@/data/quotes";
@@ -49,15 +49,13 @@ export const Route = createFileRoute("/api/ask")({
         const gateway = createLovableAiGatewayProvider(key);
 
         try {
-          const { experimental_output } = await generateText({
+          const { object: out } = await generateObject({
             model: gateway("google/gemini-3-flash-preview"),
-            experimental_output: Output.object({ schema: ResponseSchema }),
+            schema: ResponseSchema,
             system:
-              "You are a careful Stoic scholar. Given a user's question about life, select the most relevant quotes from the provided curated corpus by id. For each pick, write a 2-3 sentence modern interpretation in plain English and one short sentence explaining why it answers this question. Then write a 3-5 sentence synthesis weaving them together. If a vital angle is missing from the corpus, you MAY add up to 2 'additional' canonical Stoic quotes you are confident in (Marcus Aurelius, Seneca, Epictetus, Musonius Rufus), with author and source citation; if uncertain, omit. Never fabricate citations. Pick 3 to 5 quotes.",
+              "You are a careful Stoic scholar. Given a user's question about life, select 3-5 of the most relevant quotes from the provided curated corpus by id. For each pick, write a 2-3 sentence modern interpretation in plain English and one short sentence explaining why it answers this question. Then write a 3-5 sentence synthesis weaving them together. If a vital angle is missing from the corpus, you MAY add up to 2 'additional' canonical Stoic quotes you are confident in (Marcus Aurelius, Seneca, Epictetus, Musonius Rufus), with author and source citation; if uncertain, leave additional empty. Never fabricate citations.",
             prompt: `User question: ${question}\n\nCorpus (JSON):\n${JSON.stringify(compactQuotes)}`,
           });
-
-          const out = experimental_output;
           const picks = out.picks
             .map((p) => {
               const quote = QUOTES.find((q) => q.id === p.quoteId);
