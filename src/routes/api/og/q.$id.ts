@@ -1,5 +1,5 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { ImageResponse } from "@cf-wasm/og";
+import { ImageResponse, loadGoogleFont } from "@cf-wasm/og";
 import { QUOTES } from "@/data/quotes";
 import { createElement as h, type ReactNode } from "react";
 
@@ -178,18 +178,10 @@ let cachedFonts: FontEntry[] | null = null;
 async function loadFonts(): Promise<FontEntry[]> {
   if (cachedFonts) return cachedFonts;
   const [inter400, inter600, cormorant, cormorantItalic] = await Promise.all([
-    fetchFont(
-      "https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap",
-    ),
-    fetchFont(
-      "https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap",
-    ),
-    fetchFont(
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap",
-    ),
-    fetchFont(
-      "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap",
-    ),
+    loadGoogleFont("Inter", { weight: 400 }),
+    loadGoogleFont("Inter", { weight: 600 }),
+    loadGoogleFont("Cormorant Garamond", { weight: 500 }),
+    loadGoogleFont("Cormorant Garamond", { weight: 500, style: "italic" }),
   ]);
 
   cachedFonts = [
@@ -199,19 +191,4 @@ async function loadFonts(): Promise<FontEntry[]> {
     { name: "Cormorant", data: cormorantItalic, weight: 500, style: "italic" },
   ];
   return cachedFonts;
-}
-
-async function fetchFont(cssUrl: string): Promise<ArrayBuffer> {
-  // Google Fonts CSS endpoint requires a real-browser UA to serve woff2 URLs.
-  const cssRes = await fetch(cssUrl, {
-    headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
-    },
-  });
-  const css = await cssRes.text();
-  const match = css.match(/src:\s*url\(([^)]+)\)\s*format\(['"]?(?:woff2|truetype)['"]?\)/);
-  if (!match) throw new Error(`Could not parse font CSS from ${cssUrl}`);
-  const fontRes = await fetch(match[1]);
-  return await fontRes.arrayBuffer();
 }
