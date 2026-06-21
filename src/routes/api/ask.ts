@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { generateObject } from "ai";
+import { generateText } from "ai";
 import { z } from "zod";
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { QUOTES } from "@/data/quotes";
@@ -49,13 +49,16 @@ export const Route = createFileRoute("/api/ask")({
         const gateway = createLovableAiGatewayProvider(key);
 
         try {
-          const { object: out } = await generateObject({
+          const { text } = await generateText({
             model: gateway("google/gemini-3-flash-preview"),
-            schema: ResponseSchema,
             system:
-              "You are a careful Stoic scholar. Given a user's question about life, select 3-5 of the most relevant quotes from the provided curated corpus by id. For each pick, write a 2-3 sentence modern interpretation in plain English and one short sentence explaining why it answers this question. Then write a 3-5 sentence synthesis weaving them together. If a vital angle is missing from the corpus, you MAY add up to 2 'additional' canonical Stoic quotes you are confident in (Marcus Aurelius, Seneca, Epictetus, Musonius Rufus), with author and source citation; if uncertain, leave additional empty. Never fabricate citations.",
-            prompt: `User question: ${question}\n\nCorpus (JSON):\n${JSON.stringify(compactQuotes)}`,
+              "You are a careful Stoic scholar. Reply ONLY with a single JSON object, no prose, no markdown fences. The object must have keys: synthesis (string, 3-5 sentences), picks (array of 3-5 objects with quoteId, interpretation [2-3 sentences plain English], relevance [1 sentence]), additional (array, 0-2 objects with text, author, source, interpretation). Pick quoteIds from the supplied corpus only. Never fabricate citations — leave additional empty if unsure.",
+            prompt: `User question: ${question}\n\nCorpus (JSON):\n${JSON.stringify(compactQuotes)}\n\nReturn the JSON object now.`,
           });
+
+          const jsonStr = extractJson(text);
+          const parsed = JSON.parse(jsonStr);
+          const out = ResponseSchema.parse(parsed);
           const picks = out.picks
             .map((p) => {
               const quote = QUOTES.find((q) => q.id === p.quoteId);
