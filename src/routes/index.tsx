@@ -148,3 +148,21 @@ function pickDaily() {
   );
   return QUOTES[dayIdx % QUOTES.length];
 }
+
+function MiniGridPreview() {
+  // Decorative 5x5 grid hint for the puzzle teaser.
+  const pattern = [
+    [1,1,1,1,1],
+    [1,1,1,1,1],
+    [1,1,1,1,1],
+    [1,1,1,1,1],
+    [1,1,1,1,1],
+  ];
+  return (
+    <div className="hidden sm:grid grid-cols-5 gap-[2px] bg-foreground/70 p-[2px] rounded-md w-20 h-20 shrink-0" aria-hidden>
+      {pattern.flat().map((v, i) => (
+        <div key={i} className={v ? "bg-background" : "bg-foreground"} />
+      ))}
+    </div>
+  );
+}
