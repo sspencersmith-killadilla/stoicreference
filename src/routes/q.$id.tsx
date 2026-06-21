@@ -16,6 +16,7 @@ export const Route = createFileRoute("/q/$id")({
     }
     const title = `${q.author} on ${q.work} ${q.section} — Stoic.ref`;
     const desc = `"${q.text}" — ${q.author}, ${q.work} ${q.section}`;
+    const ogImage = `https://askthestoics.org/api/og/q/${params.id}`;
     return {
       meta: [
         { title },
@@ -23,12 +24,17 @@ export const Route = createFileRoute("/q/$id")({
         { property: "og:title", content: `${q.author} — ${q.work} ${q.section}` },
         { property: "og:description", content: `"${q.text}"` },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: `/q/${params.id}` },
+        { property: "og:url", content: `https://askthestoics.org/q/${params.id}` },
+        { property: "og:image", content: ogImage },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: `"${q.text}" — ${q.author}` },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: `${q.author} — ${q.work} ${q.section}` },
         { name: "twitter:description", content: `"${q.text}"` },
+        { name: "twitter:image", content: ogImage },
       ],
-      links: [{ rel: "canonical", href: `/q/${params.id}` }],
+      links: [{ rel: "canonical", href: `https://askthestoics.org/q/${params.id}` }],
       scripts: [
         {
           type: "application/ld+json",
