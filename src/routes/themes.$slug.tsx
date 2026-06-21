@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { getTheme, quotesForTheme } from "@/data/themes";
+import { getTheme, quotesForTheme, type Theme } from "@/data/themes";
 import { QuoteCard } from "@/components/QuoteCard";
 
 export const Route = createFileRoute("/themes/$slug")({
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/themes/$slug")({
 });
 
 function ThemePage() {
-  const { theme } = Route.useLoaderData();
+  const { theme } = Route.useLoaderData() as { theme: Theme };
   const quotes = quotesForTheme(theme);
   return (
     <article className="mx-auto max-w-3xl px-6 py-12 md:py-16">
