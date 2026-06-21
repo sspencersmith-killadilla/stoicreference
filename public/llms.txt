@@ -1,0 +1,30 @@
+# The Stoic Reference
+
+> Ask any life question and get sourced Stoic quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus, with modern interpretations.
+
+## Pages
+
+- [Home — Ask the Stoics](/): Question search and a daily meditation.
+- [Philosophers](/philosophers): The four principal Roman Stoics.
+- [Themes](/themes): Stoic teachings organized by subject.
+- [About](/about): What Stoicism is and how this reference works.
+
+## Philosophers
+
+- [Marcus Aurelius](/philosophers/marcus-aurelius): Roman emperor, author of the Meditations.
+- [Seneca](/philosophers/seneca): Statesman and letter-writer.
+- [Epictetus](/philosophers/epictetus): Freed slave; teacher of the Discourses and Enchiridion.
+- [Musonius Rufus](/philosophers/musonius-rufus): Roman teacher of Epictetus.
+
+## Themes
+
+- [What's in Your Control](/themes/control)
+- [Mortality](/themes/death)
+- [Anger](/themes/anger)
+- [Adversity](/themes/adversity)
+- [Virtue](/themes/virtue)
+- [Desire & Wealth](/themes/desire)
+- [Time](/themes/time)
+- [Fear & Anxiety](/themes/fear)
+- [Other People](/themes/others)
+- [Fate & Acceptance](/themes/fate)

@@ -9,38 +9,179 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ThemesRouteImport } from './routes/themes'
+import { Route as PhilosophersRouteImport } from './routes/philosophers'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as AskRouteImport } from './routes/ask'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ThemesSlugRouteImport } from './routes/themes.$slug'
+import { Route as PhilosophersSlugRouteImport } from './routes/philosophers.$slug'
+import { Route as ApiAskRouteImport } from './routes/api/ask'
 
+const ThemesRoute = ThemesRouteImport.update({
+  id: '/themes',
+  path: '/themes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PhilosophersRoute = PhilosophersRouteImport.update({
+  id: '/philosophers',
+  path: '/philosophers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AskRoute = AskRouteImport.update({
+  id: '/ask',
+  path: '/ask',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThemesSlugRoute = ThemesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ThemesRoute,
+} as any)
+const PhilosophersSlugRoute = PhilosophersSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PhilosophersRoute,
+} as any)
+const ApiAskRoute = ApiAskRouteImport.update({
+  id: '/api/ask',
+  path: '/api/ask',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ask': typeof AskRoute
+  '/history': typeof HistoryRoute
+  '/philosophers': typeof PhilosophersRouteWithChildren
+  '/themes': typeof ThemesRouteWithChildren
+  '/api/ask': typeof ApiAskRoute
+  '/philosophers/$slug': typeof PhilosophersSlugRoute
+  '/themes/$slug': typeof ThemesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ask': typeof AskRoute
+  '/history': typeof HistoryRoute
+  '/philosophers': typeof PhilosophersRouteWithChildren
+  '/themes': typeof ThemesRouteWithChildren
+  '/api/ask': typeof ApiAskRoute
+  '/philosophers/$slug': typeof PhilosophersSlugRoute
+  '/themes/$slug': typeof ThemesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ask': typeof AskRoute
+  '/history': typeof HistoryRoute
+  '/philosophers': typeof PhilosophersRouteWithChildren
+  '/themes': typeof ThemesRouteWithChildren
+  '/api/ask': typeof ApiAskRoute
+  '/philosophers/$slug': typeof PhilosophersSlugRoute
+  '/themes/$slug': typeof ThemesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/ask'
+    | '/history'
+    | '/philosophers'
+    | '/themes'
+    | '/api/ask'
+    | '/philosophers/$slug'
+    | '/themes/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/ask'
+    | '/history'
+    | '/philosophers'
+    | '/themes'
+    | '/api/ask'
+    | '/philosophers/$slug'
+    | '/themes/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/ask'
+    | '/history'
+    | '/philosophers'
+    | '/themes'
+    | '/api/ask'
+    | '/philosophers/$slug'
+    | '/themes/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AskRoute: typeof AskRoute
+  HistoryRoute: typeof HistoryRoute
+  PhilosophersRoute: typeof PhilosophersRouteWithChildren
+  ThemesRoute: typeof ThemesRouteWithChildren
+  ApiAskRoute: typeof ApiAskRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/themes': {
+      id: '/themes'
+      path: '/themes'
+      fullPath: '/themes'
+      preLoaderRoute: typeof ThemesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/philosophers': {
+      id: '/philosophers'
+      path: '/philosophers'
+      fullPath: '/philosophers'
+      preLoaderRoute: typeof PhilosophersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ask': {
+      id: '/ask'
+      path: '/ask'
+      fullPath: '/ask'
+      preLoaderRoute: typeof AskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +189,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/themes/$slug': {
+      id: '/themes/$slug'
+      path: '/$slug'
+      fullPath: '/themes/$slug'
+      preLoaderRoute: typeof ThemesSlugRouteImport
+      parentRoute: typeof ThemesRoute
+    }
+    '/philosophers/$slug': {
+      id: '/philosophers/$slug'
+      path: '/$slug'
+      fullPath: '/philosophers/$slug'
+      preLoaderRoute: typeof PhilosophersSlugRouteImport
+      parentRoute: typeof PhilosophersRoute
+    }
+    '/api/ask': {
+      id: '/api/ask'
+      path: '/api/ask'
+      fullPath: '/api/ask'
+      preLoaderRoute: typeof ApiAskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface PhilosophersRouteChildren {
+  PhilosophersSlugRoute: typeof PhilosophersSlugRoute
+}
+
+const PhilosophersRouteChildren: PhilosophersRouteChildren = {
+  PhilosophersSlugRoute: PhilosophersSlugRoute,
+}
+
+const PhilosophersRouteWithChildren = PhilosophersRoute._addFileChildren(
+  PhilosophersRouteChildren,
+)
+
+interface ThemesRouteChildren {
+  ThemesSlugRoute: typeof ThemesSlugRoute
+}
+
+const ThemesRouteChildren: ThemesRouteChildren = {
+  ThemesSlugRoute: ThemesSlugRoute,
+}
+
+const ThemesRouteWithChildren =
+  ThemesRoute._addFileChildren(ThemesRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AskRoute: AskRoute,
+  HistoryRoute: HistoryRoute,
+  PhilosophersRoute: PhilosophersRouteWithChildren,
+  ThemesRoute: ThemesRouteWithChildren,
+  ApiAskRoute: ApiAskRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
