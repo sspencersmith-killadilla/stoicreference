@@ -94,18 +94,18 @@ function Index() {
 
             <Link
               to="/wordsearch"
-              className="group/puzzle bg-ink p-8 md:p-10 flex-1 min-h-[200px] flex flex-col justify-between"
+              className="group/puzzle bg-ink text-[var(--inverse-fg)] p-8 md:p-10 flex-1 min-h-[200px] flex flex-col justify-between [&_h3]:text-[var(--inverse-fg)]"
             >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="small-caps text-[10px] opacity-60 mb-2">Daily Puzzle</p>
+                  <p className="small-caps text-[10px] opacity-70 mb-2">Daily Puzzle</p>
                   <h3 className="font-display text-2xl">{dailyPuzzle.title}</h3>
                 </div>
                 <MiniGridPreview />
               </div>
               <div className="mt-6 flex items-baseline justify-between">
-                <p className="text-[12px] italic font-display opacity-60">A themed Stoic word search.</p>
-                <span className="small-caps text-[10px] border-b border-current/30 pb-0.5 group-hover/puzzle:border-current transition-colors">
+                <p className="text-[12px] italic font-display opacity-70">A themed Stoic word search.</p>
+                <span className="small-caps text-[10px] border-b border-current/40 pb-0.5 group-hover/puzzle:border-current transition-colors">
                   {puzzleSolved ? "Solved ✓" : "Play \u2192"}
                 </span>
               </div>
