@@ -16,7 +16,7 @@ export const Route = createFileRoute("/q/$id")({
     }
     const title = `${q.author} on ${q.work} ${q.section} — Stoic.ref`;
     const desc = `"${q.text}" — ${q.author}, ${q.work} ${q.section}`;
-    const ogImage = `https://askthestoics.org/api/og/q/${params.id}`;
+    const ogImage = `https://askthestoics.org/api/public/og/q/${params.id}`;
     return {
       meta: [
         { title },
