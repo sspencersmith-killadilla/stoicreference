@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PHILOSOPHERS } from "@/data/philosophers";
 
-export const Route = createFileRoute("/philosophers")({
+export const Route = createFileRoute("/philosophers/")({
   head: () => ({
     meta: [
       { title: "Stoic Philosophers — Marcus Aurelius, Seneca, Epictetus & More" },

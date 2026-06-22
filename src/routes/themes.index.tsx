@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { THEMES } from "@/data/themes";
 
-export const Route = createFileRoute("/themes")({
+export const Route = createFileRoute("/themes/")({
   head: () => ({
     meta: [
       { title: "Stoic Themes — Control, Death, Anger, Virtue & More" },
