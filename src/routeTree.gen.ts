@@ -25,6 +25,7 @@ import { Route as ThemesSlugRouteImport } from './routes/themes.$slug'
 import { Route as QIdRouteImport } from './routes/q.$id'
 import { Route as PhilosophersSlugRouteImport } from './routes/philosophers.$slug'
 import { Route as ApiAskRouteImport } from './routes/api/ask'
+import { Route as ApiAdminSeedQuotesRouteImport } from './routes/api/admin.seed-quotes'
 import { Route as ApiPublicOgQIdRouteImport } from './routes/api/public/og/q.$id'
 
 const WordsearchRoute = WordsearchRouteImport.update({
@@ -107,6 +108,11 @@ const ApiAskRoute = ApiAskRouteImport.update({
   path: '/api/ask',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdminSeedQuotesRoute = ApiAdminSeedQuotesRouteImport.update({
+  id: '/api/admin/seed-quotes',
+  path: '/api/admin/seed-quotes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicOgQIdRoute = ApiPublicOgQIdRouteImport.update({
   id: '/api/public/og/q/$id',
   path: '/api/public/og/q/$id',
@@ -130,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/themes/$slug': typeof ThemesSlugRoute
   '/philosophers/': typeof PhilosophersIndexRoute
   '/themes/': typeof ThemesIndexRoute
+  '/api/admin/seed-quotes': typeof ApiAdminSeedQuotesRoute
   '/api/public/og/q/$id': typeof ApiPublicOgQIdRoute
 }
 export interface FileRoutesByTo {
@@ -147,6 +154,7 @@ export interface FileRoutesByTo {
   '/themes/$slug': typeof ThemesSlugRoute
   '/philosophers': typeof PhilosophersIndexRoute
   '/themes': typeof ThemesIndexRoute
+  '/api/admin/seed-quotes': typeof ApiAdminSeedQuotesRoute
   '/api/public/og/q/$id': typeof ApiPublicOgQIdRoute
 }
 export interface FileRoutesById {
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/themes/$slug': typeof ThemesSlugRoute
   '/philosophers/': typeof PhilosophersIndexRoute
   '/themes/': typeof ThemesIndexRoute
+  '/api/admin/seed-quotes': typeof ApiAdminSeedQuotesRoute
   '/api/public/og/q/$id': typeof ApiPublicOgQIdRoute
 }
 export interface FileRouteTypes {
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/themes/$slug'
     | '/philosophers/'
     | '/themes/'
+    | '/api/admin/seed-quotes'
     | '/api/public/og/q/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/themes/$slug'
     | '/philosophers'
     | '/themes'
+    | '/api/admin/seed-quotes'
     | '/api/public/og/q/$id'
   id:
     | '__root__'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/themes/$slug'
     | '/philosophers/'
     | '/themes/'
+    | '/api/admin/seed-quotes'
     | '/api/public/og/q/$id'
   fileRoutesById: FileRoutesById
 }
@@ -240,6 +252,7 @@ export interface RootRouteChildren {
   WordsearchRoute: typeof WordsearchRoute
   ApiAskRoute: typeof ApiAskRoute
   QIdRoute: typeof QIdRoute
+  ApiAdminSeedQuotesRoute: typeof ApiAdminSeedQuotesRoute
   ApiPublicOgQIdRoute: typeof ApiPublicOgQIdRoute
 }
 
@@ -357,6 +370,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAskRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/admin/seed-quotes': {
+      id: '/api/admin/seed-quotes'
+      path: '/api/admin/seed-quotes'
+      fullPath: '/api/admin/seed-quotes'
+      preLoaderRoute: typeof ApiAdminSeedQuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/og/q/$id': {
       id: '/api/public/og/q/$id'
       path: '/api/public/og/q/$id'
@@ -407,18 +427,9 @@ const rootRouteChildren: RootRouteChildren = {
   WordsearchRoute: WordsearchRoute,
   ApiAskRoute: ApiAskRoute,
   QIdRoute: QIdRoute,
+  ApiAdminSeedQuotesRoute: ApiAdminSeedQuotesRoute,
   ApiPublicOgQIdRoute: ApiPublicOgQIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
