@@ -1,15 +1,51 @@
-## The bug
 
-Not intentional — it's a routing structure mistake.
+# Retrieval-Based Ask Engine
 
-`src/routes/themes.tsx` is the parent of `src/routes/themes.$slug.tsx`, but it renders the themes index UI directly instead of an `<Outlet />`. When you navigate to `/themes/adversity`, the child route matches but has nowhere to render, so you keep seeing the index list.
+Right now `/api/ask` ships **every quote** (currently 49) to the LLM on every question. That caps how comprehensive the answer engine can get. This plan switches to **semantic retrieval**: every quote is embedded into a vector once, and each question only sends the top ~12 most relevant quotes to the LLM.
 
-The same issue exists for `philosophers.tsx` vs `philosophers.$slug.tsx` — worth fixing in the same pass so individual philosopher pages actually display.
+## What changes for the user
+- The Ask page works the same — type a question, get a synthesis + cited quotes.
+- The corpus grows from ~50 to several hundred quotes initially, with headroom for thousands.
+- Answers feel more specific because the model is choosing from quotes that actually match the question, not skimming the whole corpus.
 
-## Fix
+## Architecture
 
-1. Rename `src/routes/themes.tsx` → `src/routes/themes.index.tsx` and update its `createFileRoute("/themes")` to `createFileRoute("/themes/")`.
-2. Create a new tiny layout `src/routes/themes.tsx` that just renders `<Outlet />` under `createFileRoute("/themes")`.
-3. Do the same for philosophers: rename `philosophers.tsx` → `philosophers.index.tsx`, add a new `philosophers.tsx` layout with `<Outlet />`.
+```text
+   User question
+        │
+        ▼
+  Embed question (Lovable AI gateway, gemini-embedding-001)
+        │
+        ▼
+  pgvector similarity search in Lovable Cloud
+        │
+   top ~12 quotes
+        │
+        ▼
+  LLM synthesis (gemini-3-flash-preview) with only those quotes in prompt
+        │
+        ▼
+  Synthesis + cited picks → UI
+```
 
-No data or content changes — `themes.$slug.tsx` and `philosophers.$slug.tsx` already render correctly; they just need a parent that yields to them.
+## Implementation steps
+
+1. **Enable Lovable Cloud** (Supabase + pgvector). Required to store embeddings.
+2. **Migration**: create `quotes` table (id, text, author, work, section, translator, themes[], embedding vector(3072)) with HNSW index and a `match_quotes(query_embedding, match_count)` function. Public `TO anon` SELECT policy so the Ask endpoint can read.
+3. **Seed script** (`scripts/seed-quotes.ts`): reads from `src/data/quotes.ts`, calls the Lovable AI embeddings endpoint per quote, upserts into Postgres. Idempotent by `id`. Run once after each corpus expansion.
+4. **Corpus expansion**: grow `src/data/quotes.ts` from 49 to ~250 quotes initially (full Enchiridion coverage, more Meditations books, more Senecan letters, more Musonius lectures). Existing IDs stay stable.
+5. **Rewrite `/api/ask`**: embed the question → call `match_quotes` → pass only the retrieved quotes (not the full corpus) to the LLM. Same response shape, so the UI doesn't change.
+6. **Browse pages** (philosophers/themes) continue reading from the static `QUOTES` array — no change needed.
+
+## Cost / scale notes
+- Embeddings are billed once per quote at seed time (a few cents for hundreds of quotes).
+- Each question = 1 small embedding call + 1 LLM call with ~12 quotes in context instead of all of them → **cheaper per question** than today once the corpus passes ~80 quotes.
+- Comfortable scaling ceiling: thousands of quotes. Past that we'd tune the HNSW index.
+
+## Out of scope (can do later)
+- Multilingual quotes
+- Per-user history of asked questions
+- Admin UI to add quotes from the browser (would still just call the seed function)
+
+## Open question
+**How big should the initial corpus be?** I'll default to ~250 hand-curated quotes (a real working library) unless you want me to push harder toward ~500 in this same pass.
