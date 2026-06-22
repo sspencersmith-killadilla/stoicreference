@@ -19,6 +19,8 @@ import { Route as HistoryRouteImport } from './routes/history'
 import { Route as AskRouteImport } from './routes/ask'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ThemesIndexRouteImport } from './routes/themes.index'
+import { Route as PhilosophersIndexRouteImport } from './routes/philosophers.index'
 import { Route as ThemesSlugRouteImport } from './routes/themes.$slug'
 import { Route as QIdRouteImport } from './routes/q.$id'
 import { Route as PhilosophersSlugRouteImport } from './routes/philosophers.$slug'
@@ -75,6 +77,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ThemesIndexRoute = ThemesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ThemesRoute,
+} as any)
+const PhilosophersIndexRoute = PhilosophersIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PhilosophersRoute,
+} as any)
 const ThemesSlugRoute = ThemesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -116,6 +128,8 @@ export interface FileRoutesByFullPath {
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
   '/themes/$slug': typeof ThemesSlugRoute
+  '/philosophers/': typeof PhilosophersIndexRoute
+  '/themes/': typeof ThemesIndexRoute
   '/api/public/og/q/$id': typeof ApiPublicOgQIdRoute
 }
 export interface FileRoutesByTo {
@@ -123,16 +137,16 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
   '/history': typeof HistoryRoute
-  '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stoic-quotes': typeof StoicQuotesRoute
-  '/themes': typeof ThemesRouteWithChildren
   '/what-is-stoicism': typeof WhatIsStoicismRoute
   '/wordsearch': typeof WordsearchRoute
   '/api/ask': typeof ApiAskRoute
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
   '/themes/$slug': typeof ThemesSlugRoute
+  '/philosophers': typeof PhilosophersIndexRoute
+  '/themes': typeof ThemesIndexRoute
   '/api/public/og/q/$id': typeof ApiPublicOgQIdRoute
 }
 export interface FileRoutesById {
@@ -151,6 +165,8 @@ export interface FileRoutesById {
   '/philosophers/$slug': typeof PhilosophersSlugRoute
   '/q/$id': typeof QIdRoute
   '/themes/$slug': typeof ThemesSlugRoute
+  '/philosophers/': typeof PhilosophersIndexRoute
+  '/themes/': typeof ThemesIndexRoute
   '/api/public/og/q/$id': typeof ApiPublicOgQIdRoute
 }
 export interface FileRouteTypes {
@@ -170,6 +186,8 @@ export interface FileRouteTypes {
     | '/philosophers/$slug'
     | '/q/$id'
     | '/themes/$slug'
+    | '/philosophers/'
+    | '/themes/'
     | '/api/public/og/q/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -177,16 +195,16 @@ export interface FileRouteTypes {
     | '/about'
     | '/ask'
     | '/history'
-    | '/philosophers'
     | '/sitemap.xml'
     | '/stoic-quotes'
-    | '/themes'
     | '/what-is-stoicism'
     | '/wordsearch'
     | '/api/ask'
     | '/philosophers/$slug'
     | '/q/$id'
     | '/themes/$slug'
+    | '/philosophers'
+    | '/themes'
     | '/api/public/og/q/$id'
   id:
     | '__root__'
@@ -204,6 +222,8 @@ export interface FileRouteTypes {
     | '/philosophers/$slug'
     | '/q/$id'
     | '/themes/$slug'
+    | '/philosophers/'
+    | '/themes/'
     | '/api/public/og/q/$id'
   fileRoutesById: FileRoutesById
 }
@@ -295,6 +315,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/themes/': {
+      id: '/themes/'
+      path: '/'
+      fullPath: '/themes/'
+      preLoaderRoute: typeof ThemesIndexRouteImport
+      parentRoute: typeof ThemesRoute
+    }
+    '/philosophers/': {
+      id: '/philosophers/'
+      path: '/'
+      fullPath: '/philosophers/'
+      preLoaderRoute: typeof PhilosophersIndexRouteImport
+      parentRoute: typeof PhilosophersRoute
+    }
     '/themes/$slug': {
       id: '/themes/$slug'
       path: '/$slug'
@@ -335,10 +369,12 @@ declare module '@tanstack/react-router' {
 
 interface PhilosophersRouteChildren {
   PhilosophersSlugRoute: typeof PhilosophersSlugRoute
+  PhilosophersIndexRoute: typeof PhilosophersIndexRoute
 }
 
 const PhilosophersRouteChildren: PhilosophersRouteChildren = {
   PhilosophersSlugRoute: PhilosophersSlugRoute,
+  PhilosophersIndexRoute: PhilosophersIndexRoute,
 }
 
 const PhilosophersRouteWithChildren = PhilosophersRoute._addFileChildren(
@@ -347,10 +383,12 @@ const PhilosophersRouteWithChildren = PhilosophersRoute._addFileChildren(
 
 interface ThemesRouteChildren {
   ThemesSlugRoute: typeof ThemesSlugRoute
+  ThemesIndexRoute: typeof ThemesIndexRoute
 }
 
 const ThemesRouteChildren: ThemesRouteChildren = {
   ThemesSlugRoute: ThemesSlugRoute,
+  ThemesIndexRoute: ThemesIndexRoute,
 }
 
 const ThemesRouteWithChildren =

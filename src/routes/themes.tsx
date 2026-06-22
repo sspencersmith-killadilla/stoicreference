@@ -1,40 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { THEMES } from "@/data/themes";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/themes")({
-  head: () => ({
-    meta: [
-      { title: "Stoic Themes — Control, Death, Anger, Virtue & More" },
-      { name: "description", content: "Stoic teachings organized by subject: what's in your control, mortality, anger, virtue, time, fate, and more." },
-      { property: "og:title", content: "Stoic Themes" },
-      { property: "og:description", content: "Stoic teachings organized by subject." },
-      { property: "og:url", content: "https://askthestoics.org/themes" },
-    ],
-    links: [{ rel: "canonical", href: "https://askthestoics.org/themes" }],
-  }),
-  component: ThemesIndex,
+  component: () => <Outlet />,
 });
-
-function ThemesIndex() {
-  return (
-    <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <h1 className="font-serif text-4xl">Themes</h1>
-      <p className="text-muted-foreground mt-2 max-w-xl">
-        The same questions return in every age. Here are the ones the Stoics gave the most attention.
-      </p>
-      <div className="mt-10 grid sm:grid-cols-2 gap-x-10 gap-y-8">
-        {THEMES.map((t) => (
-          <Link
-            key={t.slug}
-            to="/themes/$slug"
-            params={{ slug: t.slug }}
-            className="group"
-          >
-            <h2 className="font-serif text-2xl group-hover:text-primary transition">{t.title}</h2>
-            <p className="mt-2 text-sm text-foreground/80 leading-relaxed">{t.description}</p>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
