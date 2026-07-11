@@ -183,3 +183,7 @@ export const QUOTES: Quote[] = [
   { id: "mu-16", text: "If one were to measure what is agreeable by the standard of pleasure, nothing would be pleasanter than self-control; and if one were to measure what is to be avoided by pain, nothing would be more painful than lack of self-control.", author: "Musonius Rufus", work: "Lectures", section: "XVI", translator: "Cynthia King", themes: ["virtue","desire","control"] },
   { id: "mu-frag-39", text: "It is far better to comfort our friend than to be comforted by him.", author: "Musonius Rufus", work: "Fragments", section: "39", translator: "Cynthia King", themes: ["friendship","others","virtue"] },
 ];
+
+// Additional curated passages appended from quotes-extra.
+import { EXTRA_QUOTES } from "./quotes-extra";
+QUOTES.push(...EXTRA_QUOTES);
