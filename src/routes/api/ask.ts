@@ -38,7 +38,9 @@ function extractJson(text: string): string {
 const EMBED_URL = "https://ai.gateway.lovable.dev/v1/embeddings";
 const EMBED_MODEL = "google/gemini-embedding-001";
 const EMBED_DIMS = 1536;
-const MATCH_COUNT = 12;
+const MATCH_COUNT = 24;
+const MAX_PER_WORK = 2;
+const FINAL_COUNT = 12;
 
 async function embedQuery(input: string, apiKey: string): Promise<number[]> {
   const res = await fetch(EMBED_URL, {
@@ -79,17 +81,28 @@ export const Route = createFileRoute("/api/ask")({
           });
           if (matchErr) throw new Error(`match_quotes: ${matchErr.message}`);
 
+          // Diversity filter: cap consecutive picks from the same work so the
+          // LLM sees a broader spread (avoids e.g. 6 Senecan letters in a row).
+          const perWork = new Map<string, number>();
+          const diversified = (matches ?? []).filter((m) => {
+            const key = `${m.author}::${m.work}`;
+            const seen = perWork.get(key) ?? 0;
+            if (seen >= MAX_PER_WORK) return false;
+            perWork.set(key, seen + 1);
+            return true;
+          }).slice(0, FINAL_COUNT);
+
           // Fall back to the static corpus if the DB is unseeded.
           const retrieved =
-            matches && matches.length > 0
-              ? matches.map((m) => ({
+            diversified.length > 0
+              ? diversified.map((m) => ({
                   id: m.id,
                   text: m.text,
                   author: m.author,
                   source: `${m.work} ${m.section}`,
                   themes: m.themes ?? [],
                 }))
-              : QUOTES.slice(0, MATCH_COUNT).map((q) => ({
+              : QUOTES.slice(0, FINAL_COUNT).map((q) => ({
                   id: q.id,
                   text: q.text,
                   author: q.author,
