@@ -16,6 +16,7 @@ import { Route as StoicQuotesRouteImport } from './routes/stoic-quotes'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
 import { Route as HistoryRouteImport } from './routes/history'
+import { Route as CoverageRouteImport } from './routes/coverage'
 import { Route as AskRouteImport } from './routes/ask'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -61,6 +62,11 @@ const PhilosophersRoute = PhilosophersRouteImport.update({
 const HistoryRoute = HistoryRouteImport.update({
   id: '/history',
   path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CoverageRoute = CoverageRouteImport.update({
+  id: '/coverage',
+  path: '/coverage',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AskRoute = AskRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
+  '/coverage': typeof CoverageRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
+  '/coverage': typeof CoverageRoute
   '/history': typeof HistoryRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stoic-quotes': typeof StoicQuotesRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/ask': typeof AskRoute
+  '/coverage': typeof CoverageRoute
   '/history': typeof HistoryRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
+    | '/coverage'
     | '/history'
     | '/philosophers'
     | '/sitemap.xml'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
+    | '/coverage'
     | '/history'
     | '/sitemap.xml'
     | '/stoic-quotes'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/ask'
+    | '/coverage'
     | '/history'
     | '/philosophers'
     | '/sitemap.xml'
@@ -243,6 +255,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AskRoute: typeof AskRoute
+  CoverageRoute: typeof CoverageRoute
   HistoryRoute: typeof HistoryRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       path: '/history'
       fullPath: '/history'
       preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/coverage': {
+      id: '/coverage'
+      path: '/coverage'
+      fullPath: '/coverage'
+      preLoaderRoute: typeof CoverageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ask': {
@@ -418,6 +438,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AskRoute: AskRoute,
+  CoverageRoute: CoverageRoute,
   HistoryRoute: HistoryRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
