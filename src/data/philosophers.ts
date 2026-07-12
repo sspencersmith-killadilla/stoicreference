@@ -110,6 +110,36 @@ export const PHILOSOPHERS: Philosopher[] = [
       { title: "Lectures", note: "Fragments preserved by his student Lucius; everyday Stoic practice." },
     ],
   },
+  {
+    slug: "cicero",
+    name: "Cicero",
+    era: "106 – 43 BCE · Rome",
+    bio: "Roman statesman, orator, and philosopher who did more than any Roman to make Greek philosophy accessible to Latin readers. Though an Academic skeptic by school affiliation, his ethical writings — especially the Tusculan Disputations and De Officiis — are deeply Stoic in spirit, often adapting Panaetius and Posidonius directly. He is not a Stoic himself, but a primary source for the Stoic tradition as it entered Roman thought.",
+    works: [
+      { title: "Tusculan Disputations", note: "Five dialogues on death, pain, grief, emotion, and the happy life; Stoic-influenced." },
+      { title: "De Officiis", note: "On duties — largely an adaptation of Panaetius's lost treatise on ethical conduct." },
+      { title: "De Finibus", note: "Survey of Hellenistic ethical theories; Book III expounds Stoicism at length." },
+      { title: "De Legibus", note: "On laws and natural law, grounded in Stoic ideas of universal reason." },
+    ],
+  },
+  {
+    slug: "diogenes-laertius",
+    name: "Diogenes Laertius",
+    era: "c. 3rd century CE · unknown",
+    bio: "A compiler of ancient Greek biography and doxography whose Lives of Eminent Philosophers is the single most important source for the lives and doctrines of the Greek philosophers. His Book 7 preserves hundreds of Stoic fragments and summaries that would otherwise be lost. He is a source, not a Stoic teacher, but his reports are indispensable for the early school.",
+    works: [
+      { title: "Lives of Eminent Philosophers", note: "Book 7 is devoted to the Stoics: Zeno, Cleanthes, Chrysippus, and their successors." },
+    ],
+  },
+  {
+    slug: "hierocles",
+    name: "Hierocles",
+    era: "c. 2nd century CE · unknown",
+    bio: "A Stoic ethicist whose work survives chiefly in papyrus fragments discovered in Egypt. His Elements of Ethics develops the Stoic doctrine of oikeiosis — the gradual extension of self-love from oneself to family, community, and ultimately all humanity. His famous 'circles of concern' image remains influential in discussions of moral identity and cosmopolitanism.",
+    works: [
+      { title: "Elements of Ethics", note: "Papyrus fragments on oikeiosis and the expanding circles of moral concern." },
+    ],
+  },
 ];
 
 export function getPhilosopher(slug: string) {
