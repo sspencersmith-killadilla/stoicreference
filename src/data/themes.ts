@@ -18,6 +18,9 @@ export const THEMES: Theme[] = [
   { slug: "fear", title: "Fear & Anxiety", description: "Most suffering is rehearsal. The Stoic looks at the worst plainly, and finds it smaller than the dread.", tags: ["fear","anxiety"] },
   { slug: "others", title: "Other People", description: "Begin the day expecting difficult people. Respond from your own character, not theirs.", tags: ["others"] },
   { slug: "fate", title: "Fate & Acceptance", description: "Amor fati — to love what happens. Not passivity, but consent to reality as the ground for action.", tags: ["fate"] },
+  { slug: "grief", title: "Grief & Loss", description: "The Stoics do not forbid tears, but they refuse to let sorrow become a second death. Consolation begins with the return of what was never truly ours.", tags: ["grief","loss"] },
+  { slug: "courage", title: "Courage", description: "Stoic courage is not the absence of fear but the refusal to let fear dictate what is honorable. Difficulty reveals what practice has made firm.", tags: ["courage","fear"] },
+  { slug: "friendship", title: "Friendship", description: "The Stoic makes friends carefully, keeps them faithfully, and never mistakes them for possessions. A friend is another self, chosen and cherished.", tags: ["friendship","others"] },
 ];
 
 export function getTheme(slug: string) {
