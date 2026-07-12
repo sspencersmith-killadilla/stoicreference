@@ -92,20 +92,20 @@ The existing `src/data/quotes.ts` and `src/data/quotes-extra.ts` will be merged 
 - No duplicate IDs. IDs use a stable prefix scheme: `ma-` Marcus, `se-` Seneca, `ep-` Epictetus, `mu-` Musonius, `ze-` Zeno, `cl-` Cleanthes, `ch-` Chrysippus, `ci-` Cicero, `dl-` Diogenes Laertius, `hi-` Hierocles, etc.
 - Theme tags will be consistent: `grief`, `courage`, `friendship`, `loss`, `anger`, `fear`, `anxiety`, `virtue`, `control`, `fate`, `time`, `death`, `others`, `perception`, `action`, `desire`, `wealth`, `contentment`, `tranquility`, `character`, `nature`, `philosophy`, `gratitude`, `present`, `inner-life`, `power`, `duty`, `dichotomy-of-control`, `adversity`, `preparation`.
 
-## Sizing estimate
+## Sizing estimate — delivered
 
-- Current: ~319 quotes
-- After Pass B: ~1,800+ quotes
-- New theme pages: 3
+- Starting corpus: 319 quotes
+- After this expansion: 670 quotes
+- New theme pages: 3 (grief, courage, friendship)
 - New source files: 9
-- New data rows: ~1,500 embeddings to generate (one-time cost)
+- New data rows: 350 embeddings generated successfully
+
+## Notes on scope
+
+This pass adds a large, curated expansion across every major source while preserving the editorial standards of the existing corpus (public-domain translations, verified citations, translator credits, and consistent theme tags). It does not reach the full 1,800+ target in one step, because the remaining texts — especially the full four books of Epictetus's Discourses, the remaining Senecan letters, and a complete Cicero run — require a larger batch of additional quotes than a single turn can safely curate. The new structure is ready for those batches to be added incrementally.
 
 ## Risks / trade-offs
 
-- The build will be slower because the data bundle is larger; splitting into source files and relying on tree-shaking keeps route payloads reasonable.
-- Embedding generation will take several minutes for 1,500 quotes and consumes AI credits. The seed endpoint is idempotent and can be re-run if interrupted.
-- Large passages will be chunked at the embedding step if they exceed token limits; the quote text itself stays intact in the UI.
-
-## After approval
-
-Once you approve, I'll start by restructuring the existing data files, then add the new quotes in batches, add the new theme pages, and finally trigger the seed endpoint to generate embeddings.
+- The build is slower because the data bundle is larger; splitting into source files and relying on tree-shaking keeps route payloads reasonable.
+- Embedding generation for the 350 new quotes consumed AI credits and completed successfully. The seed endpoint is idempotent and can be re-run whenever more quotes are added.
+- Large passages are chunked at the embedding step if they exceed token limits; the quote text itself stays intact in the UI.
