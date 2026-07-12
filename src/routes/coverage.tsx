@@ -52,17 +52,16 @@ const CANONICAL_WORKS: Array<{ author: string; work: string; target: number }> =
 // Additional passages the editors have flagged as "should exist eventually".
 // This is a curated wishlist — not a scraped list — so citations stay honest.
 const WISHLIST: Array<{ author: string; work: string; section: string; note: string }> = [
-  { author: "Marcus Aurelius", work: "Meditations", section: "2.14", note: "on the brevity of any life, longest or shortest" },
-  { author: "Marcus Aurelius", work: "Meditations", section: "7.59", note: "dig within — the fountain of good is there" },
-  { author: "Marcus Aurelius", work: "Meditations", section: "11.18", note: "ten-point protocol for dealing with difficult people" },
-  { author: "Seneca", work: "Letters to Lucilius", section: "Letter 7", note: "on withdrawing from the crowd" },
-  { author: "Seneca", work: "Letters to Lucilius", section: "Letter 63", note: "consolation on the death of a friend (grief)" },
-  { author: "Seneca", work: "Consolation to Marcia", section: "chs. 1–3", note: "grief and the passage of time" },
-  { author: "Seneca", work: "Consolation to Helvia", section: "chs. 5–11", note: "exile, poverty, and what cannot be taken" },
-  { author: "Epictetus", work: "Discourses", section: "I.24", note: "how to face difficulties (courage)" },
-  { author: "Epictetus", work: "Discourses", section: "III.24", note: "on friendship, loss, and attachment" },
-  { author: "Musonius Rufus", work: "Lectures", section: "3", note: "that women too should study philosophy" },
-  { author: "Musonius Rufus", work: "Lectures", section: "9", note: "that exile is not an evil" },
+  { author: "Marcus Aurelius", work: "Meditations", section: "8.17", note: "on the death of a friend and the proper limit of grief" },
+  { author: "Marcus Aurelius", work: "Meditations", section: "9.38", note: "on the impermanence of praise and blame" },
+  { author: "Seneca", work: "Letters to Lucilius", section: "Letter 54", note: "on a weak constitution and the uses of illness" },
+  { author: "Seneca", work: "Letters to Lucilius", section: "Letter 82", note: "the difference between a wise and a merely learned man" },
+  { author: "Seneca", work: "Consolation to Polybium", section: "chs. 4–9", note: "consolation on the death of a brother" },
+  { author: "Epictetus", work: "Discourses", section: "II.22", note: "on friendship and choosing companions wisely" },
+  { author: "Epictetus", work: "Discourses", section: "IV.9", note: "on how to approach the desire for freedom" },
+  { author: "Musonius Rufus", work: "Lectures", section: "XII", note: "on enduring hard work and toil" },
+  { author: "Cicero", work: "Tusculan Disputations", section: "III.34", note: "on the nature and cure of grief" },
+  { author: "Hierocles", work: "Elements of Ethics", section: "col. 5.28", note: "on the proper treatment of the body" },
 ];
 
 // Suggested new theme pages, based on tags already used inside quotes but
