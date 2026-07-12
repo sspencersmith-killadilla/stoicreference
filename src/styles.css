@@ -68,28 +68,28 @@
 :root {
   --radius: 0rem;
   /* Paper & Ink — warm letterpress paper with black ink */
-  --background: oklch(0.962 0.008 85);       /* #F5F3EE */
-  --foreground: oklch(0.27 0 0);             /* #2D2D2D */
-  --ink-strong: oklch(0.16 0 0);             /* #0D0D0D — display + buttons */
-  --paper: oklch(0.962 0.008 85);            /* same as background */
-  --card: oklch(0.962 0.008 85);             /* no card lift; bordered, not shadowed */
+  --background: oklch(0.962 0.008 85); /* #F5F3EE */
+  --foreground: oklch(0.27 0 0); /* #2D2D2D */
+  --ink-strong: oklch(0.16 0 0); /* #0D0D0D — display + buttons */
+  --paper: oklch(0.962 0.008 85); /* same as background */
+  --card: oklch(0.962 0.008 85); /* no card lift; bordered, not shadowed */
   --card-foreground: oklch(0.27 0 0);
   --popover: oklch(0.962 0.008 85);
   --popover-foreground: oklch(0.27 0 0);
-  --primary: oklch(0.16 0 0);                /* ink-strong */
+  --primary: oklch(0.16 0 0); /* ink-strong */
   --primary-foreground: oklch(0.962 0.008 85);
-  --secondary: oklch(0.92 0.008 85);         /* slightly deeper paper */
+  --secondary: oklch(0.92 0.008 85); /* slightly deeper paper */
   --secondary-foreground: oklch(0.16 0 0);
   --muted: oklch(0.93 0.008 85);
   --muted-foreground: oklch(0.45 0 0);
-  --accent: oklch(0.93 0.008 85);            /* warm gray — shadcn hover surfaces only */
+  --accent: oklch(0.93 0.008 85); /* warm gray — shadcn hover surfaces only */
   --accent-foreground: oklch(0.16 0 0);
   --destructive: oklch(0.5 0.18 25);
   --destructive-foreground: oklch(0.962 0.008 85);
-  --border: oklch(0.905 0.008 80);           /* #E8E4DD — hairline rule */
+  --border: oklch(0.905 0.008 80); /* #E8E4DD — hairline rule */
   --input: oklch(0.905 0.008 80);
   --ring: oklch(0.16 0 0);
-  --inverse-bg: oklch(0.16 0 0);             /* #0D0D0D — puzzle tray */
+  --inverse-bg: oklch(0.16 0 0); /* #0D0D0D — puzzle tray */
   --inverse-fg: oklch(0.962 0.008 85);
   /* aurora retired — kept as a no-op so legacy classes don't break */
   --gradient-aurora: none;
@@ -159,7 +159,10 @@
     text-rendering: optimizeLegibility;
   }
 
-  h1, h2, h3, .font-display {
+  h1,
+  h2,
+  h3,
+  .font-display {
     font-family: var(--font-display);
     letter-spacing: -0.015em;
     font-weight: 400;
@@ -222,8 +225,12 @@
 }
 
 @keyframes rule-extend {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @utility rule-extend {

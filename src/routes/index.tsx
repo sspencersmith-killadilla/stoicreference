@@ -13,9 +13,17 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "The Stoic Reference — Ask the Stoics" },
-      { name: "description", content: "Type any question about life. Get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus, with modern interpretations." },
+      {
+        name: "description",
+        content:
+          "Type any question about life. Get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus, with modern interpretations.",
+      },
       { property: "og:title", content: "The Stoic Reference" },
-      { property: "og:description", content: "Type any question about life. Get sourced Stoic quotes with modern interpretations." },
+      {
+        property: "og:description",
+        content:
+          "Type any question about life. Get sourced Stoic quotes with modern interpretations.",
+      },
       { property: "og:url", content: "https://askthestoics.org/" },
     ],
     links: [{ rel: "canonical", href: "https://askthestoics.org/" }],
@@ -89,7 +97,8 @@ function Index() {
             <div className="p-8 md:p-10 border-t lg:border-t-0 border-border">
               <h2 className="small-caps text-[10px] text-ink mb-3">Consult the Archive</h2>
               <p className="text-[13px] text-foreground/70 leading-relaxed mb-6">
-                Type any question you carry. We return what Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus actually wrote — sourced, dated, translated.
+                Type any question you carry. We return what Marcus Aurelius, Seneca, Epictetus, and
+                Musonius Rufus actually wrote — sourced, dated, translated.
               </p>
               <AskForm />
             </div>
@@ -106,7 +115,9 @@ function Index() {
                 <MiniGridPreview />
               </div>
               <div className="mt-6 flex items-baseline justify-between">
-                <p className="text-[12px] italic font-display opacity-70">A themed Stoic word search.</p>
+                <p className="text-[12px] italic font-display opacity-70">
+                  A themed Stoic word search.
+                </p>
                 <span className="small-caps text-[10px] border-b border-current/40 pb-0.5 group-hover/puzzle:border-current transition-colors">
                   {puzzleSolved ? "Solved ✓" : "Play \u2192"}
                 </span>
@@ -145,9 +156,15 @@ function Index() {
             {recent.map((e) => (
               <li key={e.id} className="flex items-baseline gap-4">
                 <span className="small-caps text-[10px] text-foreground/30 shrink-0">
-                  {new Date(e.answeredAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                  {new Date(e.answeredAt).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                  })}
                 </span>
-                <Link to="/history" className="font-display italic text-lg md:text-xl text-foreground/80 hover:text-ink hover:underline decoration-border underline-offset-4">
+                <Link
+                  to="/history"
+                  className="font-display italic text-lg md:text-xl text-foreground/80 hover:text-ink hover:underline decoration-border underline-offset-4"
+                >
                   &ldquo;{e.question}&rdquo;
                 </Link>
               </li>
@@ -160,7 +177,12 @@ function Index() {
       <section className="mt-20 border-t border-border pt-10">
         <div className="flex items-baseline justify-between mb-8">
           <h2 className="font-display text-3xl md:text-4xl italic">Philosophers</h2>
-          <Link to="/philosophers" className="small-caps text-[10px] text-foreground/60 hover:text-ink">All &rarr;</Link>
+          <Link
+            to="/philosophers"
+            className="small-caps text-[10px] text-foreground/60 hover:text-ink"
+          >
+            All &rarr;
+          </Link>
         </div>
         <ul className="divide-y divide-border border-y border-border">
           {PHILOSOPHERS.map((p) => (
@@ -189,7 +211,9 @@ function Index() {
       <section className="mt-20 border-t border-border pt-10">
         <div className="flex items-baseline justify-between mb-8">
           <h2 className="font-display text-3xl md:text-4xl italic">Themes</h2>
-          <Link to="/themes" className="small-caps text-[10px] text-foreground/60 hover:text-ink">All &rarr;</Link>
+          <Link to="/themes" className="small-caps text-[10px] text-foreground/60 hover:text-ink">
+            All &rarr;
+          </Link>
         </div>
         <ul className="flex flex-wrap gap-x-6 gap-y-3">
           {THEMES.map((t) => (

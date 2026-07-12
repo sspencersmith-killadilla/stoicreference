@@ -46,7 +46,12 @@ export const Route = createFileRoute("/themes/$slug")({
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://askthestoics.org/" },
-              { "@type": "ListItem", position: 2, name: "Themes", item: "https://askthestoics.org/themes" },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Themes",
+                item: "https://askthestoics.org/themes",
+              },
               { "@type": "ListItem", position: 3, name: t.title, item: url },
             ],
           }),
@@ -66,7 +71,9 @@ function ThemePage() {
         ← All themes
       </Link>
       <h1 className="mt-4 font-serif text-5xl">{theme.title}</h1>
-      <p className="mt-6 text-lg leading-relaxed font-serif text-foreground/90">{theme.description}</p>
+      <p className="mt-6 text-lg leading-relaxed font-serif text-foreground/90">
+        {theme.description}
+      </p>
       <section className="mt-12 space-y-10">
         {quotes.length === 0 ? (
           <p className="text-muted-foreground">No passages curated yet for this theme.</p>

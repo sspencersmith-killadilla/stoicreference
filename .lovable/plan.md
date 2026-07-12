@@ -1,26 +1,27 @@
 # Plan: Pass B Corpus Expansion
 
 ## Goal
+
 Take the current library from 319 quotes to 1,800+ curated passages by completing the major surviving Stoic sources, while preserving the editorial quality of the existing corpus (public-domain translations, verified citations, accurate translator credits, and theme tags).
 
 ## What will be added
 
 ### Core four authors — primary texts
 
-| Author | Work | Target after pass | Notes |
-|---|---|---|---|
-| Marcus Aurelius | Meditations | 150 passages | Complete all 12 books with representative passages; every book represented |
-| Seneca | Letters to Lucilius | 124 letters | Add every letter that has a usable Stoic teaching; mark as "Letter N" |
-| Seneca | On the Shortness of Life | 15 | Fill remaining sections |
-| Seneca | On Anger | 20 | Fill remaining books |
-| Seneca | On Tranquility of Mind | 15 | Complete |
-| Seneca | On Providence | 10 | Complete |
-| Seneca | Consolation to Marcia | 10 | New work; grief/loss focus |
-| Seneca | Consolation to Helvia | 10 | New work; exile/poverty focus |
-| Epictetus | Enchiridion | 53 | Complete all chapters |
-| Epictetus | Discourses Books I–II | 80 each | Complete surviving books |
-| Epictetus | Discourses Books III–IV | 80 each | New additions; bulk of the expansion |
-| Musonius Rufus | Lectures | 21 | Complete the lecture series |
+| Author          | Work                     | Target after pass | Notes                                                                      |
+| --------------- | ------------------------ | ----------------- | -------------------------------------------------------------------------- |
+| Marcus Aurelius | Meditations              | 150 passages      | Complete all 12 books with representative passages; every book represented |
+| Seneca          | Letters to Lucilius      | 124 letters       | Add every letter that has a usable Stoic teaching; mark as "Letter N"      |
+| Seneca          | On the Shortness of Life | 15                | Fill remaining sections                                                    |
+| Seneca          | On Anger                 | 20                | Fill remaining books                                                       |
+| Seneca          | On Tranquility of Mind   | 15                | Complete                                                                   |
+| Seneca          | On Providence            | 10                | Complete                                                                   |
+| Seneca          | Consolation to Marcia    | 10                | New work; grief/loss focus                                                 |
+| Seneca          | Consolation to Helvia    | 10                | New work; exile/poverty focus                                              |
+| Epictetus       | Enchiridion              | 53                | Complete all chapters                                                      |
+| Epictetus       | Discourses Books I–II    | 80 each           | Complete surviving books                                                   |
+| Epictetus       | Discourses Books III–IV  | 80 each           | New additions; bulk of the expansion                                       |
+| Musonius Rufus  | Lectures                 | 21                | Complete the lecture series                                                |
 
 ### Early and middle Stoics — balanced fragment set
 

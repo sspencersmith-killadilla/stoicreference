@@ -33,7 +33,10 @@ function HistoryPage() {
 
       {entries.length === 0 ? (
         <p className="mt-16 text-center text-muted-foreground">
-          No questions yet. <Link to="/" className="underline">Ask something.</Link>
+          No questions yet.{" "}
+          <Link to="/" className="underline">
+            Ask something.
+          </Link>
         </p>
       ) : (
         <div className="mt-10 grid md:grid-cols-[20rem_1fr] gap-8">

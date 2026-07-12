@@ -84,13 +84,15 @@ export const Route = createFileRoute("/api/ask")({
           // Diversity filter: cap consecutive picks from the same work so the
           // LLM sees a broader spread (avoids e.g. 6 Senecan letters in a row).
           const perWork = new Map<string, number>();
-          const diversified = (matches ?? []).filter((m) => {
-            const key = `${m.author}::${m.work}`;
-            const seen = perWork.get(key) ?? 0;
-            if (seen >= MAX_PER_WORK) return false;
-            perWork.set(key, seen + 1);
-            return true;
-          }).slice(0, FINAL_COUNT);
+          const diversified = (matches ?? [])
+            .filter((m) => {
+              const key = `${m.author}::${m.work}`;
+              const seen = perWork.get(key) ?? 0;
+              if (seen >= MAX_PER_WORK) return false;
+              perWork.set(key, seen + 1);
+              return true;
+            })
+            .slice(0, FINAL_COUNT);
 
           // Fall back to the static corpus if the DB is unseeded.
           const retrieved =
@@ -129,7 +131,11 @@ export const Route = createFileRoute("/api/ask")({
             .map((p) => {
               const fromStatic = QUOTES.find((q) => q.id === p.quoteId);
               if (fromStatic) {
-                return { quote: fromStatic, interpretation: p.interpretation, relevance: p.relevance };
+                return {
+                  quote: fromStatic,
+                  interpretation: p.interpretation,
+                  relevance: p.relevance,
+                };
               }
               const fromRetrieved = retrieved.find((r) => r.id === p.quoteId);
               if (!fromRetrieved) return null;
