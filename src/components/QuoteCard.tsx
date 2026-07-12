@@ -89,5 +89,11 @@ function authorSlug(name: Quote["author"]): string {
       return "epictetus";
     case "Musonius Rufus":
       return "musonius-rufus";
+    case "Cicero":
+      return "cicero";
+    case "Diogenes Laertius":
+      return "diogenes-laertius";
+    case "Hierocles":
+      return "hierocles";
   }
 }
