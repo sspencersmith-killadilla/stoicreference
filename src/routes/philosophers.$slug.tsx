@@ -49,7 +49,12 @@ export const Route = createFileRoute("/philosophers/$slug")({
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: "https://askthestoics.org/" },
-              { "@type": "ListItem", position: 2, name: "Philosophers", item: "https://askthestoics.org/philosophers" },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Philosophers",
+                item: "https://askthestoics.org/philosophers",
+              },
               { "@type": "ListItem", position: 3, name: p.name, item: url },
             ],
           }),
@@ -66,12 +71,17 @@ function PhilosopherPage() {
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <Link to="/philosophers" className="text-xs small-caps text-muted-foreground hover:text-foreground">
+      <Link
+        to="/philosophers"
+        className="text-xs small-caps text-muted-foreground hover:text-foreground"
+      >
         ← All philosophers
       </Link>
       <h1 className="mt-4 font-serif text-5xl">{philosopher.name}</h1>
       <p className="small-caps text-xs text-muted-foreground mt-2">{philosopher.era}</p>
-      <p className="mt-6 text-lg leading-relaxed font-serif text-foreground/90">{philosopher.bio}</p>
+      <p className="mt-6 text-lg leading-relaxed font-serif text-foreground/90">
+        {philosopher.bio}
+      </p>
 
       <section className="mt-10">
         <h2 className="font-serif text-xl mb-3">Key works</h2>

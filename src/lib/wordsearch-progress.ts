@@ -13,7 +13,7 @@ function readAll(): Store {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) return {};
     const parsed = JSON.parse(raw);
-    return (parsed && typeof parsed === "object") ? (parsed as Store) : {};
+    return parsed && typeof parsed === "object" ? (parsed as Store) : {};
   } catch {
     return {};
   }

@@ -109,11 +109,7 @@ export const Route = createFileRoute("/api/public/og/q/$id")({
                 paddingTop: 22,
               },
             },
-            h(
-              "div",
-              { style: { fontSize: 26, fontWeight: 600, display: "flex" } },
-              quote.author,
-            ),
+            h("div", { style: { fontSize: 26, fontWeight: 600, display: "flex" } }, quote.author),
             h(
               "div",
               {
@@ -127,11 +123,7 @@ export const Route = createFileRoute("/api/public/og/q/$id")({
               },
               h("span", { style: { fontStyle: "italic" } }, quote.work),
               h("span", null, "\u00B7"),
-              h(
-                "span",
-                { style: { letterSpacing: "0.08em" } },
-                quote.section,
-              ),
+              h("span", { style: { letterSpacing: "0.08em" } }, quote.section),
               quote.translator
                 ? h(
                     "span",

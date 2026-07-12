@@ -93,54 +93,105 @@ function WhatIsStoicismPage() {
         What Is Stoicism?
       </h1>
       <p className="mt-6 font-serif text-xl leading-relaxed text-foreground/90">
-        Stoicism is a Greco-Roman philosophy practiced as a way of life. Its central claim
-        is severe and freeing: virtue is the only good, vice the only evil, and everything
-        else — health, wealth, reputation, even our bodies — is borrowed. Founded around 300
-        BCE by <Link to="/philosophers/$slug" params={{ slug: "zeno-of-citium" }} className="underline decoration-border underline-offset-4">Zeno of Citium</Link> in
-        Athens, it became the dominant philosophy of the educated Roman world and survives in
-        the writings of <Link to="/philosophers/$slug" params={{ slug: "marcus-aurelius" }} className="underline decoration-border underline-offset-4">Marcus Aurelius</Link>,{" "}
-        <Link to="/philosophers/$slug" params={{ slug: "seneca" }} className="underline decoration-border underline-offset-4">Seneca</Link>,{" "}
-        <Link to="/philosophers/$slug" params={{ slug: "epictetus" }} className="underline decoration-border underline-offset-4">Epictetus</Link>, and{" "}
-        <Link to="/philosophers/$slug" params={{ slug: "musonius-rufus" }} className="underline decoration-border underline-offset-4">Musonius Rufus</Link>.
+        Stoicism is a Greco-Roman philosophy practiced as a way of life. Its central claim is severe
+        and freeing: virtue is the only good, vice the only evil, and everything else — health,
+        wealth, reputation, even our bodies — is borrowed. Founded around 300 BCE by{" "}
+        <Link
+          to="/philosophers/$slug"
+          params={{ slug: "zeno-of-citium" }}
+          className="underline decoration-border underline-offset-4"
+        >
+          Zeno of Citium
+        </Link>{" "}
+        in Athens, it became the dominant philosophy of the educated Roman world and survives in the
+        writings of{" "}
+        <Link
+          to="/philosophers/$slug"
+          params={{ slug: "marcus-aurelius" }}
+          className="underline decoration-border underline-offset-4"
+        >
+          Marcus Aurelius
+        </Link>
+        ,{" "}
+        <Link
+          to="/philosophers/$slug"
+          params={{ slug: "seneca" }}
+          className="underline decoration-border underline-offset-4"
+        >
+          Seneca
+        </Link>
+        ,{" "}
+        <Link
+          to="/philosophers/$slug"
+          params={{ slug: "epictetus" }}
+          className="underline decoration-border underline-offset-4"
+        >
+          Epictetus
+        </Link>
+        , and{" "}
+        <Link
+          to="/philosophers/$slug"
+          params={{ slug: "musonius-rufus" }}
+          className="underline decoration-border underline-offset-4"
+        >
+          Musonius Rufus
+        </Link>
+        .
       </p>
 
       <h2 className="font-display text-3xl italic mt-14">The Core Claim</h2>
       <p className="mt-4 leading-relaxed">
-        Everything that happens to you is either{" "}
-        <em>up to you</em> or it isn't. Your judgments, intentions, and chosen actions are up
-        to you. Your body, your reputation, the behavior of other people, and the outcomes of
-        your projects are not. Stoicism rests almost entirely on the discipline of telling
-        these two categories apart and putting all of your moral attention on the first.
+        Everything that happens to you is either <em>up to you</em> or it isn't. Your judgments,
+        intentions, and chosen actions are up to you. Your body, your reputation, the behavior of
+        other people, and the outcomes of your projects are not. Stoicism rests almost entirely on
+        the discipline of telling these two categories apart and putting all of your moral attention
+        on the first.
       </p>
       <p className="mt-4 leading-relaxed">
-        From this single move flow the famous results: emotional disturbance is not caused by
-        events but by our judgments about events; therefore disturbance can be corrected by
-        correcting the judgment, not by changing the world. As Epictetus puts it:{" "}
-        <Link to="/q/$id" params={{ id: "ep-en-5" }} className="italic underline decoration-border underline-offset-4">
+        From this single move flow the famous results: emotional disturbance is not caused by events
+        but by our judgments about events; therefore disturbance can be corrected by correcting the
+        judgment, not by changing the world. As Epictetus puts it:{" "}
+        <Link
+          to="/q/$id"
+          params={{ id: "ep-en-5" }}
+          className="italic underline decoration-border underline-offset-4"
+        >
           "Men are disturbed not by the things which happen, but by the opinions about the things."
         </Link>
       </p>
 
       <h2 className="font-display text-3xl italic mt-14">The Four Virtues</h2>
       <p className="mt-4 leading-relaxed">
-        The Stoics inherited from Plato a fourfold scheme of virtue and made it their entire
-        ethical content. There is no other good.
+        The Stoics inherited from Plato a fourfold scheme of virtue and made it their entire ethical
+        content. There is no other good.
       </p>
       <ul className="mt-6 space-y-4">
-        <li><strong className="font-display italic">Wisdom</strong> — knowing what is good, bad, and indifferent, and acting on it.</li>
-        <li><strong className="font-display italic">Justice</strong> — treating others fairly, honoring obligations, working for the common good.</li>
-        <li><strong className="font-display italic">Courage</strong> — endurance in the face of hardship, including the courage to do what is right.</li>
-        <li><strong className="font-display italic">Temperance</strong> — discipline and moderation in pleasure, desire, and action.</li>
+        <li>
+          <strong className="font-display italic">Wisdom</strong> — knowing what is good, bad, and
+          indifferent, and acting on it.
+        </li>
+        <li>
+          <strong className="font-display italic">Justice</strong> — treating others fairly,
+          honoring obligations, working for the common good.
+        </li>
+        <li>
+          <strong className="font-display italic">Courage</strong> — endurance in the face of
+          hardship, including the courage to do what is right.
+        </li>
+        <li>
+          <strong className="font-display italic">Temperance</strong> — discipline and moderation in
+          pleasure, desire, and action.
+        </li>
       </ul>
 
       <h2 className="font-display text-3xl italic mt-14">A Brief History</h2>
       <p className="mt-4 leading-relaxed">
         Stoicism unfolds in three stages. The <em>Early Stoa</em> in Athens (Zeno, Cleanthes,
-        Chrysippus, c. 300–150 BCE) worked out the technical system: logic, physics, ethics,
-        each interlocked. The <em>Middle Stoa</em> (Panaetius, Posidonius, c. 150–50 BCE)
-        softened the early rigor and carried the school into Roman public life. The{" "}
-        <em>Late Stoa</em> in Rome (Seneca, Musonius, Epictetus, Marcus Aurelius, c. 1–180 CE)
-        is what survives in continuous text and is where most modern readers begin. See the{" "}
+        Chrysippus, c. 300–150 BCE) worked out the technical system: logic, physics, ethics, each
+        interlocked. The <em>Middle Stoa</em> (Panaetius, Posidonius, c. 150–50 BCE) softened the
+        early rigor and carried the school into Roman public life. The <em>Late Stoa</em> in Rome
+        (Seneca, Musonius, Epictetus, Marcus Aurelius, c. 1–180 CE) is what survives in continuous
+        text and is where most modern readers begin. See the{" "}
         <Link to="/history" className="underline decoration-border underline-offset-4">
           full timeline
         </Link>{" "}
@@ -157,21 +208,41 @@ function WhatIsStoicismPage() {
         practices are still the best place to begin:
       </p>
       <ul className="mt-6 space-y-4 list-disc pl-6">
-        <li><strong>Morning preparation.</strong> Anticipate the day's difficulties. Marcus Aurelius opens Book 2 of the Meditations this way.</li>
-        <li><strong>Evening review.</strong> At the end of the day, examine what you did, what you said, and where you fell short — without flattery or self-pity.</li>
-        <li><strong>Negative visualization (<em>premeditatio malorum</em>).</strong> Imagine the loss of what you value. Not to dread it, but to defuse the dread.</li>
-        <li><strong>The view from above.</strong> Step back imaginatively to see your concerns in the scale of a whole life, a whole city, a whole world.</li>
-        <li><strong>Voluntary discomfort.</strong> Mild fasting, cold, plain food — small rehearsals for adversity that loosen your grip on comfort.</li>
-        <li><strong>Journaling.</strong> Read the Meditations: it is a journal. The point is not literature but slow attention to your own judgments.</li>
+        <li>
+          <strong>Morning preparation.</strong> Anticipate the day's difficulties. Marcus Aurelius
+          opens Book 2 of the Meditations this way.
+        </li>
+        <li>
+          <strong>Evening review.</strong> At the end of the day, examine what you did, what you
+          said, and where you fell short — without flattery or self-pity.
+        </li>
+        <li>
+          <strong>
+            Negative visualization (<em>premeditatio malorum</em>).
+          </strong>{" "}
+          Imagine the loss of what you value. Not to dread it, but to defuse the dread.
+        </li>
+        <li>
+          <strong>The view from above.</strong> Step back imaginatively to see your concerns in the
+          scale of a whole life, a whole city, a whole world.
+        </li>
+        <li>
+          <strong>Voluntary discomfort.</strong> Mild fasting, cold, plain food — small rehearsals
+          for adversity that loosen your grip on comfort.
+        </li>
+        <li>
+          <strong>Journaling.</strong> Read the Meditations: it is a journal. The point is not
+          literature but slow attention to your own judgments.
+        </li>
       </ul>
 
       <h2 className="font-display text-3xl italic mt-14">Common Misconceptions</h2>
       <p className="mt-4 leading-relaxed">
         Stoicism is <em>not</em> emotional suppression. The Stoics never asked you to bottle
-        feeling; they asked you to examine the judgments that produce destructive feeling. It
-        is not passivity — Marcus governed an empire, Seneca a Senate, Cato died resisting a
-        tyrant. It is not a religion, though it has a metaphysics. And it is not the same as
-        being "stoic" in modern English, which usually just means unexpressive.
+        feeling; they asked you to examine the judgments that produce destructive feeling. It is not
+        passivity — Marcus governed an empire, Seneca a Senate, Cato died resisting a tyrant. It is
+        not a religion, though it has a metaphysics. And it is not the same as being "stoic" in
+        modern English, which usually just means unexpressive.
       </p>
 
       <h2 className="font-display text-3xl italic mt-14">Frequently Asked Questions</h2>
@@ -185,10 +256,16 @@ function WhatIsStoicismPage() {
       </div>
 
       <div className="mt-16 border-t border-border pt-8 flex flex-wrap gap-4">
-        <Link to="/ask" className="rounded-full bg-foreground text-background px-5 py-2 text-sm hover:opacity-90 transition">
+        <Link
+          to="/ask"
+          className="rounded-full bg-foreground text-background px-5 py-2 text-sm hover:opacity-90 transition"
+        >
           Ask the Stoics a question →
         </Link>
-        <Link to="/stoic-quotes" className="rounded-full border border-border px-5 py-2 text-sm hover:bg-secondary transition">
+        <Link
+          to="/stoic-quotes"
+          className="rounded-full border border-border px-5 py-2 text-sm hover:bg-secondary transition"
+        >
           Browse Stoic quotes
         </Link>
       </div>

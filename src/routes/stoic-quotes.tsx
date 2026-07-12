@@ -60,13 +60,15 @@ function StoicQuotesPage() {
         Stoic Quotes
       </h1>
       <p className="mt-6 font-serif text-xl leading-relaxed text-foreground/90">
-        A curated archive of {QUOTES.length} passages from the Stoic canon — drawn from{" "}
-        Marcus Aurelius's <em>Meditations</em>, Seneca's <em>Letters</em> and essays,
-        Epictetus's <em>Enchiridion</em> and <em>Discourses</em>, Musonius Rufus's{" "}
-        <em>Lectures</em>, and the surviving fragments of the early Greek Stoics. Every quote
-        is sourced to its work, section, and translator. For an interpretation in plain
-        English, type a question on the{" "}
-        <Link to="/ask" className="underline decoration-border underline-offset-4">Ask page</Link>.
+        A curated archive of {QUOTES.length} passages from the Stoic canon — drawn from Marcus
+        Aurelius's <em>Meditations</em>, Seneca's <em>Letters</em> and essays, Epictetus's{" "}
+        <em>Enchiridion</em> and <em>Discourses</em>, Musonius Rufus's <em>Lectures</em>, and the
+        surviving fragments of the early Greek Stoics. Every quote is sourced to its work, section,
+        and translator. For an interpretation in plain English, type a question on the{" "}
+        <Link to="/ask" className="underline decoration-border underline-offset-4">
+          Ask page
+        </Link>
+        .
       </p>
 
       <section className="mt-14">
@@ -78,10 +80,17 @@ function StoicQuotesPage() {
                 &ldquo;{q.text}&rdquo;
               </blockquote>
               <figcaption className="mt-4 text-sm text-muted-foreground">
-                <Link to="/q/$id" params={{ id: q.id }} className="text-ink hover:underline decoration-border underline-offset-4">
+                <Link
+                  to="/q/$id"
+                  params={{ id: q.id }}
+                  className="text-ink hover:underline decoration-border underline-offset-4"
+                >
                   {q.author}
                 </Link>{" "}
-                · <span className="italic font-display">{q.work}, {q.section}</span>
+                ·{" "}
+                <span className="italic font-display">
+                  {q.work}, {q.section}
+                </span>
                 {q.translator ? ` · trans. ${q.translator}` : ""}
               </figcaption>
               <script
@@ -144,10 +153,16 @@ function StoicQuotesPage() {
       </section>
 
       <div className="mt-16 border-t border-border pt-8 flex flex-wrap gap-4">
-        <Link to="/ask" className="rounded-full bg-foreground text-background px-5 py-2 text-sm hover:opacity-90 transition">
+        <Link
+          to="/ask"
+          className="rounded-full bg-foreground text-background px-5 py-2 text-sm hover:opacity-90 transition"
+        >
           Ask the Stoics a question →
         </Link>
-        <Link to="/what-is-stoicism" className="rounded-full border border-border px-5 py-2 text-sm hover:bg-secondary transition">
+        <Link
+          to="/what-is-stoicism"
+          className="rounded-full border border-border px-5 py-2 text-sm hover:bg-secondary transition"
+        >
           What is Stoicism?
         </Link>
       </div>

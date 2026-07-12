@@ -35,33 +35,88 @@ const CANONICAL_WORKS: Array<{ author: string; work: string; target: number }> =
   { author: "Seneca", work: "On Anger", target: 20 },
   { author: "Seneca", work: "On Tranquility of Mind", target: 15 },
   { author: "Seneca", work: "On Providence", target: 10 },
+  { author: "Seneca", work: "Consolation to Marcia", target: 10 },
+  { author: "Seneca", work: "Consolation to Helvia", target: 10 },
+  { author: "Seneca", work: "On the Happy Life", target: 10 },
+  { author: "Seneca", work: "On Clemency", target: 5 },
+  { author: "Seneca", work: "On Benefits", target: 5 },
   { author: "Epictetus", work: "Enchiridion", target: 53 },
-  { author: "Epictetus", work: "Discourses", target: 80 },
+  { author: "Epictetus", work: "Discourses", target: 160 },
   { author: "Musonius Rufus", work: "Lectures", target: 21 },
+  { author: "Cicero", work: "Tusculan Disputations", target: 15 },
+  { author: "Cicero", work: "De Officiis", target: 10 },
+  { author: "Diogenes Laertius", work: "Lives of Eminent Philosophers", target: 20 },
+  { author: "Hierocles", work: "Elements of Ethics", target: 10 },
 ];
 
 // Additional passages the editors have flagged as "should exist eventually".
 // This is a curated wishlist — not a scraped list — so citations stay honest.
 const WISHLIST: Array<{ author: string; work: string; section: string; note: string }> = [
-  { author: "Marcus Aurelius", work: "Meditations", section: "2.14", note: "on the brevity of any life, longest or shortest" },
-  { author: "Marcus Aurelius", work: "Meditations", section: "7.59", note: "dig within — the fountain of good is there" },
-  { author: "Marcus Aurelius", work: "Meditations", section: "11.18", note: "ten-point protocol for dealing with difficult people" },
-  { author: "Seneca", work: "Letters to Lucilius", section: "Letter 7", note: "on withdrawing from the crowd" },
-  { author: "Seneca", work: "Letters to Lucilius", section: "Letter 63", note: "consolation on the death of a friend (grief)" },
-  { author: "Seneca", work: "Consolation to Marcia", section: "chs. 1–3", note: "grief and the passage of time" },
-  { author: "Seneca", work: "Consolation to Helvia", section: "chs. 5–11", note: "exile, poverty, and what cannot be taken" },
-  { author: "Epictetus", work: "Discourses", section: "I.24", note: "how to face difficulties (courage)" },
-  { author: "Epictetus", work: "Discourses", section: "III.24", note: "on friendship, loss, and attachment" },
-  { author: "Musonius Rufus", work: "Lectures", section: "3", note: "that women too should study philosophy" },
-  { author: "Musonius Rufus", work: "Lectures", section: "9", note: "that exile is not an evil" },
+  {
+    author: "Marcus Aurelius",
+    work: "Meditations",
+    section: "8.17",
+    note: "on the death of a friend and the proper limit of grief",
+  },
+  {
+    author: "Marcus Aurelius",
+    work: "Meditations",
+    section: "9.38",
+    note: "on the impermanence of praise and blame",
+  },
+  {
+    author: "Seneca",
+    work: "Letters to Lucilius",
+    section: "Letter 54",
+    note: "on a weak constitution and the uses of illness",
+  },
+  {
+    author: "Seneca",
+    work: "Letters to Lucilius",
+    section: "Letter 82",
+    note: "the difference between a wise and a merely learned man",
+  },
+  {
+    author: "Seneca",
+    work: "Consolation to Polybium",
+    section: "chs. 4–9",
+    note: "consolation on the death of a brother",
+  },
+  {
+    author: "Epictetus",
+    work: "Discourses",
+    section: "II.22",
+    note: "on friendship and choosing companions wisely",
+  },
+  {
+    author: "Epictetus",
+    work: "Discourses",
+    section: "IV.9",
+    note: "on how to approach the desire for freedom",
+  },
+  {
+    author: "Musonius Rufus",
+    work: "Lectures",
+    section: "XII",
+    note: "on enduring hard work and toil",
+  },
+  {
+    author: "Cicero",
+    work: "Tusculan Disputations",
+    section: "III.34",
+    note: "on the nature and cure of grief",
+  },
+  {
+    author: "Hierocles",
+    work: "Elements of Ethics",
+    section: "col. 5.28",
+    note: "on the proper treatment of the body",
+  },
 ];
 
 // Suggested new theme pages, based on tags already used inside quotes but
 // without a dedicated /themes/<slug> landing page yet.
 const SUGGESTED_THEMES: Record<string, string> = {
-  grief: "Grief & Loss",
-  courage: "Courage",
-  friendship: "Friendship",
   tranquility: "Tranquility",
   contentment: "Contentment",
   character: "Character",
@@ -139,8 +194,8 @@ function CoveragePage() {
       <p className="small-caps text-xs text-muted-foreground">Editorial audit</p>
       <h1 className="mt-3 font-serif text-4xl md:text-5xl">Corpus coverage</h1>
       <p className="mt-4 text-lg text-foreground/80 font-serif leading-relaxed max-w-2xl">
-        A live view of what the library holds — every theme measured by quote count,
-        author diversity, and canonical breadth — and, more importantly, what it still lacks.
+        A live view of what the library holds — every theme measured by quote count, author
+        diversity, and canonical breadth — and, more importantly, what it still lacks.
       </p>
 
       <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -153,7 +208,8 @@ function CoveragePage() {
       <section className="mt-16">
         <h2 className="font-serif text-2xl">Themes by depth</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Rating combines quote count with author diversity. A theme leaning on one philosopher is not yet solid.
+          Rating combines quote count with author diversity. A theme leaning on one philosopher is
+          not yet solid.
         </p>
         <div className="mt-6 overflow-x-auto">
           <table className="w-full text-sm border-collapse">
@@ -171,7 +227,11 @@ function CoveragePage() {
               {rows.map((r) => (
                 <tr key={r.slug} className="border-b border-border/60 align-top">
                   <td className="py-3 pr-4">
-                    <Link to="/themes/$slug" params={{ slug: r.slug }} className="text-ink hover:underline">
+                    <Link
+                      to="/themes/$slug"
+                      params={{ slug: r.slug }}
+                      className="text-ink hover:underline"
+                    >
                       {r.title}
                     </Link>
                   </td>
@@ -243,7 +303,8 @@ function CoveragePage() {
       <section className="mt-16 mb-8">
         <h2 className="font-serif text-2xl">Editor's wishlist</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          Canonical passages flagged for inclusion — each verified against a printed edition before adding.
+          Canonical passages flagged for inclusion — each verified against a printed edition before
+          adding.
         </p>
         <ul className="mt-6 divide-y divide-border border-y border-border">
           {WISHLIST.map((w, i) => (
@@ -251,7 +312,9 @@ function CoveragePage() {
               <span className="small-caps text-[11px] text-ink">{w.author}</span>
               <span className="italic text-sm">{w.work}</span>
               <span className="text-xs text-muted-foreground">§ {w.section}</span>
-              <span className="text-sm text-foreground/80 basis-full md:basis-auto md:ml-2">— {w.note}</span>
+              <span className="text-sm text-foreground/80 basis-full md:basis-auto md:ml-2">
+                — {w.note}
+              </span>
             </li>
           ))}
         </ul>

@@ -1,15 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { pickDailyPuzzle, generateGrid, matchSelection, type WordSearch, type Placement } from "@/data/wordsearch";
+import {
+  pickDailyPuzzle,
+  generateGrid,
+  matchSelection,
+  type WordSearch,
+  type Placement,
+} from "@/data/wordsearch";
 import { loadProgress, saveProgress, clearProgress } from "@/lib/wordsearch-progress";
 
 export const Route = createFileRoute("/wordsearch")({
   head: () => ({
     meta: [
       { title: "Daily Stoic Word Search — The Stoic Reference" },
-      { name: "description", content: "A fresh themed word search every day, drawn from the Stoic canon. Find the hidden virtues." },
+      {
+        name: "description",
+        content:
+          "A fresh themed word search every day, drawn from the Stoic canon. Find the hidden virtues.",
+      },
       { property: "og:title", content: "Daily Stoic Word Search" },
-      { property: "og:description", content: "A fresh themed word search every day, drawn from the Stoic canon." },
+      {
+        property: "og:description",
+        content: "A fresh themed word search every day, drawn from the Stoic canon.",
+      },
       { property: "og:url", content: "https://askthestoics.org/wordsearch" },
     ],
     links: [{ rel: "canonical", href: "https://askthestoics.org/wordsearch" }],
@@ -77,28 +90,38 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
     return s;
   }, [found]);
 
-  const selectionSet = useMemo(() => new Set(selectionCells.map((c) => `${c.r},${c.c}`)), [selectionCells]);
+  const selectionSet = useMemo(
+    () => new Set(selectionCells.map((c) => `${c.r},${c.c}`)),
+    [selectionCells],
+  );
 
-  const finish = useCallback((end: Cell) => {
-    if (!start) return;
-    const hit = matchSelection(placements, start, end);
-    if (hit && !found.some((f) => f.word === hit.word)) {
-      setFound((prev) => [...prev, hit]);
-      setFlash("hit");
-    } else if (!hit) {
-      setFlash("miss");
-    }
-    setTimeout(() => setFlash(null), 400);
-    setStart(null);
-    setHover(null);
-  }, [start, placements, found]);
+  const finish = useCallback(
+    (end: Cell) => {
+      if (!start) return;
+      const hit = matchSelection(placements, start, end);
+      if (hit && !found.some((f) => f.word === hit.word)) {
+        setFound((prev) => [...prev, hit]);
+        setFlash("hit");
+      } else if (!hit) {
+        setFlash("miss");
+      }
+      setTimeout(() => setFlash(null), 400);
+      setStart(null);
+      setHover(null);
+    },
+    [start, placements, found],
+  );
 
   function reset() {
     setFound([]);
     clearProgress(puzzle.id);
   }
 
-  const dateLabel = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" });
+  const dateLabel = new Date().toLocaleDateString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <div className="relative">
@@ -106,7 +129,9 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
       <div className="mx-auto max-w-5xl px-6 pt-16 md:pt-20 pb-20">
         <header className="text-center mb-10">
           <p className="small-caps text-xs text-muted-foreground">{dateLabel}</p>
-          <h1 className="mt-3 font-display text-5xl md:text-6xl tracking-tight">Daily Stoic Word Search</h1>
+          <h1 className="mt-3 font-display text-5xl md:text-6xl tracking-tight">
+            Daily Stoic Word Search
+          </h1>
           <p className="mt-3 text-muted-foreground italic font-serif text-lg">{puzzle.title}</p>
         </header>
 
@@ -130,7 +155,12 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
               })}
             </ul>
             <div className="mt-6 flex flex-wrap gap-2">
-              <button onClick={reset} className="rounded-full border border-border bg-background px-4 py-1.5 text-xs hover:bg-secondary transition">Reset</button>
+              <button
+                onClick={reset}
+                className="rounded-full border border-border bg-background px-4 py-1.5 text-xs hover:bg-secondary transition"
+              >
+                Reset
+              </button>
             </div>
             <p className="mt-4 text-xs text-muted-foreground">
               Click the first letter, then the last. Words run in all eight directions.
@@ -141,7 +171,9 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
           <div className="order-1 md:order-2 mx-auto w-full max-w-[520px]">
             <div
               className={`rounded-2xl border border-border bg-card p-3 shadow-soft select-none ${flash === "miss" ? "ring-2 ring-destructive/40" : ""} ${flash === "hit" ? "ring-2 ring-foreground/40" : ""}`}
-              onMouseLeave={() => { setHover(null); }}
+              onMouseLeave={() => {
+                setHover(null);
+              }}
             >
               <div
                 className="grid gap-[2px] bg-foreground/10 rounded-lg overflow-hidden"
@@ -159,10 +191,16 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
                       <button
                         key={key}
                         onClick={() => {
-                          if (!start) { setStart({ r, c }); setHover({ r, c }); }
-                          else { finish({ r, c }); }
+                          if (!start) {
+                            setStart({ r, c });
+                            setHover({ r, c });
+                          } else {
+                            finish({ r, c });
+                          }
                         }}
-                        onMouseEnter={() => { if (start) setHover({ r, c }); }}
+                        onMouseEnter={() => {
+                          if (start) setHover({ r, c });
+                        }}
                         className={`aspect-square flex items-center justify-center font-sans text-sm md:text-base font-medium uppercase tabular-nums transition-colors
                           ${inFound ? "bg-accent/20 text-ink" : "bg-background text-foreground"}
                           ${inSel ? "bg-foreground/30 text-ink" : ""}
@@ -187,8 +225,18 @@ function PuzzleView({ puzzle }: { puzzle: WordSearch }) {
             <p className="mt-3 text-muted-foreground font-serif italic text-lg">{puzzle.note}</p>
             <div className="mt-5 flex flex-wrap gap-3 justify-center text-sm">
               <ShareButton puzzle={puzzle} />
-              <Link to="/ask" className="rounded-full border border-border bg-background px-4 py-2 hover:bg-secondary transition">Ask a question</Link>
-              <Link to="/" className="rounded-full border border-border bg-background px-4 py-2 hover:bg-secondary transition">Home</Link>
+              <Link
+                to="/ask"
+                className="rounded-full border border-border bg-background px-4 py-2 hover:bg-secondary transition"
+              >
+                Ask a question
+              </Link>
+              <Link
+                to="/"
+                className="rounded-full border border-border bg-background px-4 py-2 hover:bg-secondary transition"
+              >
+                Home
+              </Link>
             </div>
           </div>
         )}
@@ -214,7 +262,10 @@ function ShareButton({ puzzle }: { puzzle: WordSearch }) {
     } catch {}
   }
   return (
-    <button onClick={share} className="rounded-full bg-foreground text-background px-4 py-2 hover:opacity-90 transition">
+    <button
+      onClick={share}
+      className="rounded-full bg-foreground text-background px-4 py-2 hover:opacity-90 transition"
+    >
       {copied ? "Copied!" : "Share"}
     </button>
   );

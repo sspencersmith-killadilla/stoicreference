@@ -78,16 +78,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Stoic Reference" },
-      { name: "description", content: "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations." },
+      {
+        name: "description",
+        content:
+          "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
+      },
       { name: "author", content: "The Stoic Reference" },
       { property: "og:title", content: "The Stoic Reference" },
-      { property: "og:description", content: "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations." },
+      {
+        property: "og:description",
+        content:
+          "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: "The Stoic Reference" },
-      { name: "twitter:description", content: "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/479b7464-bd65-4a2b-b212-fb4d19586c84" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/479b7464-bd65-4a2b-b212-fb4d19586c84" },
+      {
+        name: "twitter:description",
+        content:
+          "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
+      },
+      {
+        property: "og:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/479b7464-bd65-4a2b-b212-fb4d19586c84",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/479b7464-bd65-4a2b-b212-fb4d19586c84",
+      },
     ],
     links: [
       {
@@ -110,7 +130,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: "The Stoic Reference",
           alternateName: "Ask the Stoics",
           url: "https://askthestoics.org",
-          description: "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
+          description:
+            "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
           potentialAction: {
             "@type": "SearchAction",
             target: "https://askthestoics.org/ask?q={search_term_string}",
@@ -170,25 +191,47 @@ function SiteHeader() {
     <header className="border-b border-border">
       <div className="mx-auto max-w-6xl px-6 md:px-10 py-6 flex items-end justify-between gap-6">
         <Link to="/" className="group block">
-          <p className="small-caps text-[10px] text-foreground/60 mb-1">A working reference of Stoicism</p>
+          <p className="small-caps text-[10px] text-foreground/60 mb-1">
+            A working reference of Stoicism
+          </p>
           <span className="font-display italic text-xl md:text-2xl text-ink leading-none">
             The Stoic Reference
           </span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 small-caps text-[10px]">
-          <Link to="/philosophers" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
+          <Link
+            to="/philosophers"
+            className="text-foreground/60 hover:text-ink transition-colors"
+            activeProps={{ className: "text-ink" }}
+          >
             Philosophers
           </Link>
-          <Link to="/themes" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
+          <Link
+            to="/themes"
+            className="text-foreground/60 hover:text-ink transition-colors"
+            activeProps={{ className: "text-ink" }}
+          >
             Themes
           </Link>
-          <Link to="/wordsearch" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
+          <Link
+            to="/wordsearch"
+            className="text-foreground/60 hover:text-ink transition-colors"
+            activeProps={{ className: "text-ink" }}
+          >
             Word Search
           </Link>
-          <Link to="/history" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
+          <Link
+            to="/history"
+            className="text-foreground/60 hover:text-ink transition-colors"
+            activeProps={{ className: "text-ink" }}
+          >
             History
           </Link>
-          <Link to="/about" className="text-foreground/60 hover:text-ink transition-colors" activeProps={{ className: "text-ink" }}>
+          <Link
+            to="/about"
+            className="text-foreground/60 hover:text-ink transition-colors"
+            activeProps={{ className: "text-ink" }}
+          >
             About
           </Link>
         </nav>
@@ -202,18 +245,40 @@ function SiteFooter() {
     <footer className="border-t border-border mt-24">
       <div className="mx-auto max-w-6xl px-6 md:px-10 py-8 text-[11px] text-foreground/60 flex flex-col gap-4">
         <nav className="flex flex-wrap gap-x-6 gap-y-2 small-caps text-[10px]">
-          <Link to="/what-is-stoicism" className="text-foreground/70 hover:text-ink transition-colors">What is Stoicism?</Link>
-          <Link to="/stoic-quotes" className="text-foreground/70 hover:text-ink transition-colors">Stoic Quotes</Link>
-          <Link to="/philosophers" className="text-foreground/70 hover:text-ink transition-colors">Philosophers</Link>
-          <Link to="/themes" className="text-foreground/70 hover:text-ink transition-colors">Themes</Link>
-          <Link to="/history" className="text-foreground/70 hover:text-ink transition-colors">History</Link>
-          <Link to="/ask" className="text-foreground/70 hover:text-ink transition-colors">Ask</Link>
-          <Link to="/wordsearch" className="text-foreground/70 hover:text-ink transition-colors">Word Search</Link>
-          <Link to="/about" className="text-foreground/70 hover:text-ink transition-colors">About</Link>
+          <Link
+            to="/what-is-stoicism"
+            className="text-foreground/70 hover:text-ink transition-colors"
+          >
+            What is Stoicism?
+          </Link>
+          <Link to="/stoic-quotes" className="text-foreground/70 hover:text-ink transition-colors">
+            Stoic Quotes
+          </Link>
+          <Link to="/philosophers" className="text-foreground/70 hover:text-ink transition-colors">
+            Philosophers
+          </Link>
+          <Link to="/themes" className="text-foreground/70 hover:text-ink transition-colors">
+            Themes
+          </Link>
+          <Link to="/history" className="text-foreground/70 hover:text-ink transition-colors">
+            History
+          </Link>
+          <Link to="/ask" className="text-foreground/70 hover:text-ink transition-colors">
+            Ask
+          </Link>
+          <Link to="/wordsearch" className="text-foreground/70 hover:text-ink transition-colors">
+            Word Search
+          </Link>
+          <Link to="/about" className="text-foreground/70 hover:text-ink transition-colors">
+            About
+          </Link>
         </nav>
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
           <span className="small-caps text-foreground/80">The Stoic Reference — Ref. 4.01</span>
-          <span className="font-sans">Sourced from public-domain translations · Interpretations are AI-assisted; verify before quoting.</span>
+          <span className="font-sans">
+            Sourced from public-domain translations · Interpretations are AI-assisted; verify before
+            quoting.
+          </span>
         </div>
       </div>
     </footer>

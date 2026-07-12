@@ -15,7 +15,11 @@ export const Route = createFileRoute("/ask")({
   head: () => ({
     meta: [
       { title: "Ask the Stoics — Sourced Answers from Marcus Aurelius, Seneca & Epictetus" },
-      { name: "description", content: "Ask any question and get sourced Stoic quotes with modern interpretations from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus." },
+      {
+        name: "description",
+        content:
+          "Ask any question and get sourced Stoic quotes with modern interpretations from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus.",
+      },
       { property: "og:title", content: "Ask the Stoics" },
       { property: "og:description", content: "Sourced Stoic answers to any question." },
       { property: "og:url", content: "https://askthestoics.org/ask" },
@@ -51,8 +55,12 @@ function AskPage() {
         });
         if (!res.ok) {
           const body = await res.text().catch(() => "");
-          if (res.status === 429) throw new Error("Rate limited — please wait a moment and try again.");
-          if (res.status === 402) throw new Error("AI credits exhausted for this workspace. Add credits in Settings → Plans & credits.");
+          if (res.status === 429)
+            throw new Error("Rate limited — please wait a moment and try again.");
+          if (res.status === 402)
+            throw new Error(
+              "AI credits exhausted for this workspace. Add credits in Settings → Plans & credits.",
+            );
           throw new Error(body || `Request failed (${res.status})`);
         }
         const result = (await res.json()) as AskResult;
@@ -86,17 +94,20 @@ function AskPage() {
           </div>
         ) : (
           <p className="mt-16 text-center text-muted-foreground">
-            Enter a question above. <Link to="/themes" className="text-ink hover:underline">Or browse by theme.</Link>
+            Enter a question above.{" "}
+            <Link to="/themes" className="text-ink hover:underline">
+              Or browse by theme.
+            </Link>
           </p>
         )}
 
-      {state.status === "loading" ? <LoadingSkeleton /> : null}
-      {state.status === "error" ? (
-        <div className="mt-10 border border-destructive/40 bg-destructive/5 text-destructive-foreground rounded-md p-4 text-sm">
-          <p className="text-destructive font-medium">Something went wrong.</p>
-          <p className="text-foreground/80 mt-1">{state.message}</p>
-        </div>
-      ) : null}
+        {state.status === "loading" ? <LoadingSkeleton /> : null}
+        {state.status === "error" ? (
+          <div className="mt-10 border border-destructive/40 bg-destructive/5 text-destructive-foreground rounded-md p-4 text-sm">
+            <p className="text-destructive font-medium">Something went wrong.</p>
+            <p className="text-foreground/80 mt-1">{state.message}</p>
+          </div>
+        ) : null}
         {state.status === "ok" ? <Result result={state.result} /> : null}
       </div>
     </div>
@@ -141,7 +152,10 @@ function Result({ result }: { result: AskResult }) {
           </p>
           <div className="space-y-6">
             {result.additional.map((a, i) => (
-              <figure key={i} className="rounded-2xl border border-dashed border-border bg-card/60 p-6">
+              <figure
+                key={i}
+                className="rounded-2xl border border-dashed border-border bg-card/60 p-6"
+              >
                 <blockquote className="pullquote text-xl">&ldquo;{a.text}&rdquo;</blockquote>
                 <figcaption className="mt-3 text-sm text-muted-foreground">
                   {a.author} · <span className="italic">{a.source}</span>

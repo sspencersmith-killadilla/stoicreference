@@ -112,8 +112,14 @@ function mulberry32(seed: number) {
 }
 
 const DIRECTIONS: [number, number][] = [
-  [0, 1], [1, 0], [1, 1], [-1, 1],
-  [0, -1], [-1, 0], [1, -1], [-1, -1],
+  [0, 1],
+  [1, 0],
+  [1, 1],
+  [-1, 1],
+  [0, -1],
+  [-1, 0],
+  [1, -1],
+  [-1, -1],
 ];
 
 export function generateGrid(puzzle: WordSearch): GeneratedGrid {
@@ -143,7 +149,10 @@ export function generateGrid(puzzle: WordSearch): GeneratedGrid {
         const r = r0 + dr * i;
         const c = c0 + dc * i;
         const ex = letters[r][c];
-        if (ex && ex !== word[i]) { ok = false; break; }
+        if (ex && ex !== word[i]) {
+          ok = false;
+          break;
+        }
       }
       if (!ok) continue;
       for (let i = 0; i < len; i++) {

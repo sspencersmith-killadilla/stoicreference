@@ -119,7 +119,11 @@ export function ShareQuote(props: Props) {
           onClick={() => copy(url, "link")}
           className="inline-flex items-center gap-1.5 small-caps text-[10px] text-foreground/70 hover:text-ink cursor-pointer"
         >
-          {copied === "link" ? <Check className="h-3.5 w-3.5" /> : <LinkIcon className="h-3.5 w-3.5" />}
+          {copied === "link" ? (
+            <Check className="h-3.5 w-3.5" />
+          ) : (
+            <LinkIcon className="h-3.5 w-3.5" />
+          )}
           {copied === "link" ? "Copied" : "Copy link"}
         </button>
       ) : null}
