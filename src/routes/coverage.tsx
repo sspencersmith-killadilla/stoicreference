@@ -67,9 +67,6 @@ const WISHLIST: Array<{ author: string; work: string; section: string; note: str
 // Suggested new theme pages, based on tags already used inside quotes but
 // without a dedicated /themes/<slug> landing page yet.
 const SUGGESTED_THEMES: Record<string, string> = {
-  grief: "Grief & Loss",
-  courage: "Courage",
-  friendship: "Friendship",
   tranquility: "Tranquility",
   contentment: "Contentment",
   character: "Character",
