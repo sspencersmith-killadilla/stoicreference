@@ -35,9 +35,18 @@ const CANONICAL_WORKS: Array<{ author: string; work: string; target: number }> =
   { author: "Seneca", work: "On Anger", target: 20 },
   { author: "Seneca", work: "On Tranquility of Mind", target: 15 },
   { author: "Seneca", work: "On Providence", target: 10 },
+  { author: "Seneca", work: "Consolation to Marcia", target: 10 },
+  { author: "Seneca", work: "Consolation to Helvia", target: 10 },
+  { author: "Seneca", work: "On the Happy Life", target: 10 },
+  { author: "Seneca", work: "On Clemency", target: 5 },
+  { author: "Seneca", work: "On Benefits", target: 5 },
   { author: "Epictetus", work: "Enchiridion", target: 53 },
-  { author: "Epictetus", work: "Discourses", target: 80 },
+  { author: "Epictetus", work: "Discourses", target: 160 },
   { author: "Musonius Rufus", work: "Lectures", target: 21 },
+  { author: "Cicero", work: "Tusculan Disputations", target: 15 },
+  { author: "Cicero", work: "De Officiis", target: 10 },
+  { author: "Diogenes Laertius", work: "Lives of Eminent Philosophers", target: 20 },
+  { author: "Hierocles", work: "Elements of Ethics", target: 10 },
 ];
 
 // Additional passages the editors have flagged as "should exist eventually".
