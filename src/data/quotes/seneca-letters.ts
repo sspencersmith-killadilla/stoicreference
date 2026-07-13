@@ -561,15 +561,6 @@ export const SENECA_LETTERS_QUOTES: Quote[] = [
     themes: ["tranquility", "inner-life", "virtue"],
   },
   {
-    id: "se-ep-11",
-    text: "You should never judge as worth-less a letter which has lost none of its time-saving privilege, a letter which has the same amount of time to deal with that a man has to give to it.",
-    author: "Seneca",
-    work: "Letters to Lucilius",
-    section: "Letter 11",
-    translator: "Richard Gummere",
-    themes: ["time", "virtue", "action"],
-  },
-  {
     id: "se-ep-14",
     text: "The wise man will never provoke the anger of those in power; nay, he will turn his course, precisely as he would turn from a storm.",
     author: "Seneca",

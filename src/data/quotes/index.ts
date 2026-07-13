@@ -29,6 +29,8 @@ import { EPICTETUS_DISCOURSES_QUOTES } from "./epictetus-discourses";
 import { MUSONIUS_QUOTES } from "./musonius";
 import { EARLY_STOICS_QUOTES } from "./early-stoics";
 import { OTHER_SOURCE_QUOTES } from "./other-sources";
+import { PASS_C_QUOTES } from "./pass-c";
+import { PASS_D_QUOTES } from "./pass-d";
 
 export const QUOTES: Quote[] = [
   ...MARCUS_QUOTES,
@@ -39,4 +41,6 @@ export const QUOTES: Quote[] = [
   ...MUSONIUS_QUOTES,
   ...EARLY_STOICS_QUOTES,
   ...OTHER_SOURCE_QUOTES,
+  ...PASS_C_QUOTES,
+  ...PASS_D_QUOTES,
 ];
