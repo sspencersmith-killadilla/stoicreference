@@ -15,6 +15,7 @@ import { Route as ThemesRouteImport } from './routes/themes'
 import { Route as StoicQuotesRouteImport } from './routes/stoic-quotes'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PhilosophersRouteImport } from './routes/philosophers'
+import { Route as MementoMoriRouteImport } from './routes/memento-mori'
 import { Route as HistoryRouteImport } from './routes/history'
 import { Route as CoverageRouteImport } from './routes/coverage'
 import { Route as AskRouteImport } from './routes/ask'
@@ -57,6 +58,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const PhilosophersRoute = PhilosophersRouteImport.update({
   id: '/philosophers',
   path: '/philosophers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MementoMoriRoute = MementoMoriRouteImport.update({
+  id: '/memento-mori',
+  path: '/memento-mori',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HistoryRoute = HistoryRouteImport.update({
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/ask': typeof AskRoute
   '/coverage': typeof CoverageRoute
   '/history': typeof HistoryRoute
+  '/memento-mori': typeof MementoMoriRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stoic-quotes': typeof StoicQuotesRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByTo {
   '/ask': typeof AskRoute
   '/coverage': typeof CoverageRoute
   '/history': typeof HistoryRoute
+  '/memento-mori': typeof MementoMoriRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stoic-quotes': typeof StoicQuotesRoute
   '/what-is-stoicism': typeof WhatIsStoicismRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   '/ask': typeof AskRoute
   '/coverage': typeof CoverageRoute
   '/history': typeof HistoryRoute
+  '/memento-mori': typeof MementoMoriRoute
   '/philosophers': typeof PhilosophersRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/stoic-quotes': typeof StoicQuotesRoute
@@ -195,6 +204,7 @@ export interface FileRouteTypes {
     | '/ask'
     | '/coverage'
     | '/history'
+    | '/memento-mori'
     | '/philosophers'
     | '/sitemap.xml'
     | '/stoic-quotes'
@@ -216,6 +226,7 @@ export interface FileRouteTypes {
     | '/ask'
     | '/coverage'
     | '/history'
+    | '/memento-mori'
     | '/sitemap.xml'
     | '/stoic-quotes'
     | '/what-is-stoicism'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
     | '/ask'
     | '/coverage'
     | '/history'
+    | '/memento-mori'
     | '/philosophers'
     | '/sitemap.xml'
     | '/stoic-quotes'
@@ -257,6 +269,7 @@ export interface RootRouteChildren {
   AskRoute: typeof AskRoute
   CoverageRoute: typeof CoverageRoute
   HistoryRoute: typeof HistoryRoute
+  MementoMoriRoute: typeof MementoMoriRoute
   PhilosophersRoute: typeof PhilosophersRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoicQuotesRoute: typeof StoicQuotesRoute
@@ -311,6 +324,13 @@ declare module '@tanstack/react-router' {
       path: '/philosophers'
       fullPath: '/philosophers'
       preLoaderRoute: typeof PhilosophersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/memento-mori': {
+      id: '/memento-mori'
+      path: '/memento-mori'
+      fullPath: '/memento-mori'
+      preLoaderRoute: typeof MementoMoriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/history': {
@@ -440,6 +460,7 @@ const rootRouteChildren: RootRouteChildren = {
   AskRoute: AskRoute,
   CoverageRoute: CoverageRoute,
   HistoryRoute: HistoryRoute,
+  MementoMoriRoute: MementoMoriRoute,
   PhilosophersRoute: PhilosophersRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoicQuotesRoute: StoicQuotesRoute,
