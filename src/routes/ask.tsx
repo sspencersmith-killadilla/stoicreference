@@ -118,14 +118,14 @@ function Result({ result }: { result: AskResult }) {
   return (
     <div className="mt-10 space-y-12">
       <section className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-soft">
-        <p className="small-caps text-xs text-muted-foreground mb-3">A reading</p>
+        <h2 className="small-caps text-xs text-muted-foreground mb-3 font-normal">A reading</h2>
         <div className="prose prose-stone max-w-none text-base md:text-lg leading-relaxed">
           <ReactMarkdown>{result.synthesis}</ReactMarkdown>
         </div>
       </section>
 
       <section>
-        <p className="small-caps text-xs text-muted-foreground mb-6">From the Stoics</p>
+        <h2 className="small-caps text-xs text-muted-foreground mb-6 font-normal">From the Stoics</h2>
         <div className="space-y-6">
           {result.picks.map((p, i) => (
             <QuoteCard
@@ -146,7 +146,7 @@ function Result({ result }: { result: AskResult }) {
 
       {result.additional.length > 0 ? (
         <section>
-          <p className="small-caps text-xs text-muted-foreground mb-3">Further passages</p>
+          <h2 className="small-caps text-xs text-muted-foreground mb-3 font-normal">Further passages</h2>
           <p className="text-xs text-muted-foreground mb-6 italic">
             AI-suggested attributions. Verify against a printed edition before quoting.
           </p>
