@@ -8,6 +8,11 @@ export const Route = createFileRoute("/history")({
     meta: [
       { title: "History — The Stoic Reference" },
       { name: "description", content: "Questions you've asked the Stoics in this browser." },
+      { property: "og:title", content: "Your Ask History — The Stoic Reference" },
+      {
+        property: "og:description",
+        content: "Questions you've asked the Stoics in this browser.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),

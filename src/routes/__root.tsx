@@ -254,6 +254,9 @@ function SiteFooter() {
           <Link to="/stoic-quotes" className="text-foreground/70 hover:text-ink transition-colors">
             Stoic Quotes
           </Link>
+          <Link to="/memento-mori" className="text-foreground/70 hover:text-ink transition-colors">
+            Memento Mori
+          </Link>
           <Link to="/philosophers" className="text-foreground/70 hover:text-ink transition-colors">
             Philosophers
           </Link>
