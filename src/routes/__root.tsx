@@ -79,6 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Stoic Reference" },
       {
+        name: "google-site-verification",
+        content: "lBWjyWRLDvfB7Sco35se5OkVbi82kAjHNGfYcxZpHMA",
+      },
+      {
         name: "description",
         content:
           "A working reference of Stoicism. Ask a question, get sourced quotes from Marcus Aurelius, Seneca, Epictetus, and Musonius Rufus — with modern interpretations.",
