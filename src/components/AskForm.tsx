@@ -29,6 +29,7 @@ export function AskForm({ autoFocus = false }: { autoFocus?: boolean }) {
       >
         <input
           autoFocus={autoFocus}
+          aria-label="Ask a question"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Ask the Stoics…"
