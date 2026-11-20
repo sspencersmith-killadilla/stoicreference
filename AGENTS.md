@@ -10,3 +10,5 @@
 > the editor, so keep the branch in a working state.
 
 <!-- LOVABLE:END -->
+
+- Keep the favicon as a self-contained SVG derived from the site's existing identity glyph, linked in the root head, so it stays crisp at browser-tab sizes without font dependencies.

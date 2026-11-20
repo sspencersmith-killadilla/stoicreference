@@ -24,3 +24,7 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## License
+
+License: MIT, see [LICENSE](LICENSE).
